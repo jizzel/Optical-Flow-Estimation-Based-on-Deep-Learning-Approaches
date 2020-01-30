@@ -32,7 +32,7 @@ Nepoch = 100
 train_steps = 'number of folders in training set'
 val_steps  = 'number of folders in validation set'
 
-# learning rate you want to keep
+# learning rate to keep
 learning_rate = 'learinng rate'
 #lrdecay = 0.0
 lrdecay       = learning_rate/Nepoch
@@ -49,7 +49,7 @@ validation_generator = DataGenerator().generate(val_path, val_folder_list)
 print learning_rate
 
 
-def sceneednet():
+def scene_model():
 
     inimage = Input(shape=(540, 960, 12))
     conv0 = Conv2D(64,   (3, 3), name = 'conv0',   strides = 2, padding='same')(inimage)
@@ -88,46 +88,12 @@ def sceneednet():
 
 
 with tf.device('/cpu:0'):
-    model = sceneednet()
-#model = sceneednet()
+    model = scene_model()
+
 parallel_model = multi_gpu_model(model, gpus=2)
-'''
-with tf.device('/cpu:0'):
-     model = load_model('sceneflow.h5')
-     #model = model.get_layer(name=model_1)
-#model = load_model('sceneflowB.h5')
-#keras.utils.print_summary(model, line_length=None, positions=None, print_fn=None)
-# For fine tuning
-parallel_model = multi_gpu_model(model, gpus=2)
-'''
+
 # Loss function and optimizer
 
 adam = optimizers.Adam(lr=learning_rate, beta_1=0.9, beta_2=0.999,
        epsilon=None, decay=lrdecay, amsgrad=False)
 
-# Configure the model for training
-parallel_model.compile(optimizer=adam, loss=SceneFlow().epeloss, metrics=['accuracy'])
-
-
-# Saves the model after every epoch
-checkpointer = ModelCheckpoint(filepath='weights.hdf5', verbose=1, save_best_only=False)
-
-# Print history to a file
-csv_logger = keras.callbacks.CSVLogger('training.log')
-
-# Tensorboard visulaization
-tensorboard = keras.callbacks.TensorBoard(log_dir='./logs')
-
-# Stop the training if there is no improvement
-earlystop = keras.callbacks.EarlyStopping(monitor='val_loss', min_delta=0, patience=3,
-            verbose=0, mode='auto')
-
-# Training
-H = parallel_model.fit_generator(generator=training_generator, steps_per_epoch=train_steps, epochs=Nepoch,
-    validation_data=validation_generator, validation_steps=val_steps, callbacks=[csv_logger])
-
-keras.utils.plot_model(model, to_file='model.png', show_shapes=False, show_layer_names=True, rankdir='TB')
-#
-keras.utils.print_summary(parallel_model, line_length=None, positions=None, print_fn=None)
-#model.summary()
-model.save('sceneflowA.h5')
