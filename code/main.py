@@ -3,50 +3,51 @@
 
 
 import numpy as np
-import matplotlib.pyplot as plt
-import tensorflow as tf
+# import matplotlib.pyplot as plt
+# import tensorflow as tf
+import torch
 
 import keras
-from keras.models import Sequential, Model, load_model
-from keras.layers import Input, Dropout, Dense, Conv2D, Flatten, \
-     Cropping2D, Activation, Conv2DTranspose, UpSampling2D
-from keras.layers.advanced_activations import LeakyReLU, PReLU, ELU
-from keras import losses
-from keras import optimizers
-from keras.models import load_model
+# from keras.models import Sequential, Model, load_model
+# from keras.layers import Input, Dropout, Dense, Conv2D, Flatten, \
+#      Cropping2D, Activation, Conv2DTranspose, UpSampling2D
+# from keras.layers.advanced_activations import LeakyReLU, PReLU, ELU
+# from keras import losses
+# from keras import optimizers
+# from keras.models import load_model
+#
+# from keras.utils import multi_gpu_model
+#
+# from keras.callbacks import ModelCheckpoint
+# from keras.callbacks import History
+#
+# from sceneedclass import DataGenerator
+# from readfiles import DataRead
+# from sceneflow import SceneFlow
 
-from keras.utils import multi_gpu_model
-
-from keras.callbacks import ModelCheckpoint
-from keras.callbacks import History
-
-from sceneedclass import DataGenerator
-from readfiles import DataRead
-from sceneflow import SceneFlow
-
-train_path = "training set path"
-val_path = "validation set path"
-Nepoch = 100
-
-# total number of train and validation folders
-train_steps = 'number of folders in training set'
-val_steps  = 'number of folders in validation set'
-
-# learning rate to keep
-learning_rate = 'learinng rate'
-#lrdecay = 0.0
-lrdecay       = learning_rate/Nepoch
-
-train_folder_list = range(0, train_steps)
-val_folder_list   = range(0, val_steps)
-
-
-# Data Generation for training and validation
-
-training_generator   = DataGenerator().generate(train_path, train_folder_list)
-validation_generator = DataGenerator().generate(val_path, val_folder_list)
+# train_path = "training set path"
+# val_path = "validation set path"
+# Nepoch = 100
+#
+# # total number of train and validation folders
+# train_steps = 'number of folders in training set'
+# val_steps  = 'number of folders in validation set'
+#
+# # learning rate to keep
+# learning_rate = 'learinng rate'
+# #lrdecay = 0.0
+# lrdecay       = learning_rate/Nepoch
+#
+# train_folder_list = range(0, train_steps)
+# val_folder_list   = range(0, val_steps)
+#
+#
+# # Data Generation for training and validation
+#
+# training_generator   = DataGenerator().generate(train_path, train_folder_list)
+# validation_generator = DataGenerator().generate(val_path, val_folder_list)
 #test_generator     = DataGenerator().generate(test_folder_list)
-print learning_rate
+# print learning_rate
 
 
 def scene_model():
@@ -87,13 +88,13 @@ def scene_model():
     return model
 
 
-with tf.device('/cpu:0'):
-    model = scene_model()
+# with tf.device('/cpu:0'):
+#     model = scene_model()
 
-parallel_model = multi_gpu_model(model, gpus=2)
+# parallel_model = multi_gpu_model(model, gpus=2)
 
 # Loss function and optimizer
 
-adam = optimizers.Adam(lr=learning_rate, beta_1=0.9, beta_2=0.999,
-       epsilon=None, decay=lrdecay, amsgrad=False)
+# adam = optimizers.Adam(lr=learning_rate, beta_1=0.9, beta_2=0.999,
+#        epsilon=None, decay=lrdecay, amsgrad=False)
 
