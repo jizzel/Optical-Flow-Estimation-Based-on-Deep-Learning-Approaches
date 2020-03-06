@@ -24,3 +24,11 @@ with path.open(mode='r') as flo:
 
 print('flow: ', flow[0][1])
 print('flow shape: ', flow.shape)
+
+# a='/images/frame_000'
+# b='.png'
+# output='out.flo'
+# for i in range(50):
+#   python run.py --model sintel-final --first a+i+b --second ./images/second.png --out ./output
+#   i=i+2
+# done
