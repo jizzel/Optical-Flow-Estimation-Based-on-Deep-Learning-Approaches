@@ -33,6 +33,8 @@ def preprocess_data(video_input_path, flow_video_output_path, image_folder_path,
     print("Converting video to optical flow for: ", video_input_path)
 
     video_reader = cv2.VideoCapture(video_input_path)
+    print('video path: ', video_input_path)
+    print('video reader: ', video_reader)
 
     num_frames = video_reader.get(cv2.CAP_PROP_FRAME_COUNT)
     frame_size = (int(video_reader.get(cv2.CAP_PROP_FRAME_WIDTH)), int(video_reader.get(cv2.CAP_PROP_FRAME_HEIGHT)))
