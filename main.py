@@ -1,27 +1,29 @@
 import cv2
 import os, time, sys, shutil
 import numpy as np
+import matplotlib as plt
+from frames_to_opticalFlow import convertToOptical
 
 from optical_flow import convertToOpticalFlow
 
 PATH_DATA_FOLDER = './data/'
 
-PATH_TRAIN_LABEL_PREPROCESSED = PATH_DATA_FOLDER + 'train_preprocessed.txt'
+PATH_TRAIN_LABEL_PREPROCESSED = PATH_DATA_FOLDER +  'train_preprocessed.txt'
 
-PATH_TRAIN_LABEL = PATH_DATA_FOLDER + 'train.txt'
+PATH_TRAIN_LABEL = PATH_DATA_FOLDER +  'train.txt'
 PATH_TRAIN_VIDEO = PATH_DATA_FOLDER + 'train.mp4'
 PATH_TRAIN_FLOW_VIDEO = PATH_DATA_FOLDER + 'flow_train.mp4'
-PATH_TRAIN_IMAGES_FOLDER = PATH_DATA_FOLDER + 'train_images/'
-PATH_TRAIN_IMAGES_FLOW_FOLDER = PATH_DATA_FOLDER + 'train_images_flow/'
+PATH_TRAIN_IMAGES_FOLDER = PATH_DATA_FOLDER +  'train_images/'
+PATH_TRAIN_IMAGES_FLOW_FOLDER = PATH_DATA_FOLDER +  'train_images_flow/'
 
-PATH_TEST_LABEL = PATH_DATA_FOLDER + 'test.txt'
+PATH_TEST_LABEL = PATH_DATA_FOLDER +  'test.txt'
 PATH_TEST_VIDEO = PATH_DATA_FOLDER + 'test.mp4'
 PATH_TEST_FLOW_VIDEO = PATH_DATA_FOLDER + 'flow_test.mp4'
-PATH_TEST_IMAGES_FOLDER = PATH_DATA_FOLDER + 'test_images/'
-PATH_TEST_IMAGES_FLOW_FOLDER = PATH_DATA_FOLDER + 'test_images_flow/'
-
+PATH_TEST_IMAGES_FOLDER = PATH_DATA_FOLDER +  'test_images/'
+PATH_TEST_IMAGES_FLOW_FOLDER = PATH_DATA_FOLDER +  'test_images_flow/'
 
 def preprocess_data(video_input_path, flow_video_output_path, image_folder_path, flow_image_folder_path, type):
+
     if os.path.exists(image_folder_path):
         shutil.rmtree(image_folder_path)
     os.makedirs(image_folder_path)
@@ -54,23 +56,17 @@ def preprocess_data(video_input_path, flow_video_output_path, image_folder_path,
         if next_frame is None:
             break
 
-        # bgr_flow = convertToOpticalFlow(prev_frame, next_frame)
-        tensor_output = convertToOpticalFlow(prev_frame, next_frame)
+        # bgr_flow = convertToOptical(prev_frame, next_frame)
+        bgr_flow = convertToOpticalFlow(prev_frame, next_frame)
+        plt.imshow(bgr_flow)
 
-        # image_path_out = os.path.join(image_folder_path, str(count) + '.jpg')
-        flow_image_path_out = os.path.join(flow_image_folder_path, str(count) + '.flo')
+        image_path_out = os.path.join(image_folder_path, str(count) + '.jpg')
+        flow_image_path_out = os.path.join(flow_image_folder_path, str(count) + '.jpg')
 
-        # cv2.imwrite(image_path_out, next_frame)
-        # cv2.imwrite(flow_image_path_out, bgr_flow)
+        cv2.imwrite(image_path_out, next_frame)
+        cv2.imwrite(flow_image_path_out, bgr_flow)
 
-        object_output = open(flow_image_path_out, 'wb')
-
-        np.array([80, 73, 69, 72], np.uint8).tofile(object_output)
-        np.array([tensor_output.size(2), tensor_output.size(1)], np.int32).tofile(object_output)
-        np.array(tensor_output.np().transpose(1, 2, 0), np.float32).tofile(object_output)
-
-        object_output.close()
-        # video_writer.write(bgr_flow)
+        video_writer.write(bgr_flow)
 
         prev_frame = next_frame
         count += 1
@@ -91,9 +87,10 @@ def preprocess_data(video_input_path, flow_video_output_path, image_folder_path,
         # else:
         #     sys.stdout.write('\rprocessed frames: %d of %d' % (count, num_frames))
 
+
     t2 = time.time()
     video_reader.release()
-    # video_writer.release()
+    video_writer.release()
     print(' Conversion completed !')
     print(' Time Taken:', (t2 - t1), 'seconds')
 
@@ -116,15 +113,15 @@ def preprocess_data(video_input_path, flow_video_output_path, image_folder_path,
     #
     #     print(' New labels written !')
 
+
     return
 
-
 if __name__ == '__main__':
+
+
     '''PREPROCESS DATA DOES 3 THINGS:
         1. Convert video to optical flow and save their respective images
-        2. Augment image and optical flow data by Inverting them horizontally'''  ## NOW DONE IN TRAIN_MODEL.PY ITSELF IN GENERATOR DATA
+        2. Augment image and optical flow data by Inverting them horizontally'''   ## NOW DONE IN TRAIN_MODEL.PY ITSELF IN GENERATOR DATA
 
-    preprocess_data(PATH_TRAIN_VIDEO, PATH_TRAIN_FLOW_VIDEO, PATH_TRAIN_IMAGES_FOLDER, PATH_TRAIN_IMAGES_FLOW_FOLDER,
-                    type='train')
-    preprocess_data(PATH_TEST_VIDEO, PATH_TEST_FLOW_VIDEO, PATH_TEST_IMAGES_FOLDER, PATH_TEST_IMAGES_FLOW_FOLDER,
-                    type='test')
+    preprocess_data(PATH_TRAIN_VIDEO, PATH_TRAIN_FLOW_VIDEO, PATH_TRAIN_IMAGES_FOLDER, PATH_TRAIN_IMAGES_FLOW_FOLDER, type='train')
+    preprocess_data(PATH_TEST_VIDEO, PATH_TEST_FLOW_VIDEO, PATH_TEST_IMAGES_FOLDER, PATH_TEST_IMAGES_FLOW_FOLDER, type='test')

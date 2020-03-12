@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import glob
 
 import torch
 
@@ -9,6 +10,7 @@ import os
 import PIL
 import PIL.Image
 import sys
+import flowiz as fz
 
 ##########################################################
 
@@ -198,16 +200,20 @@ def estimate(tensorFirst, tensorSecond):
 
 ##########################################################
 def convertToOpticalFlow(first_img, second_image):
-    tensorFirst = torch.FloatTensor(
-        numpy.array(PIL.Image.open(first_img))[:, :, ::-1].transpose(2, 0, 1).astype(numpy.float32) * (
-                1.0 / 255.0))
-    tensorSecond = torch.FloatTensor(
-        numpy.array(PIL.Image.open(second_image))[:, :, ::-1].transpose(2, 0, 1).astype(numpy.float32) * (
-                1.0 / 255.0))
+    ttensorOutput = estimate(first_img, second_image)
 
-    tensorOutput = estimate(tensorFirst, tensorSecond)
+    objectOutput = open(arguments_strOut, 'wb')
 
-    return tensorOutput
+    numpy.array([80, 73, 69, 72], numpy.uint8).tofile(objectOutput)
+    numpy.array([tensorOutput.size(2), tensorOutput.size(1)], numpy.int32).tofile(objectOutput)
+    numpy.array(tensorOutput.numpy().transpose(1, 2, 0), numpy.float32).tofile(objectOutput)
+
+    objectOutput.close()
+
+    files = glob.glob(arguments_strOut)
+    img = fz.convert_from_file(files[0])
+
+    return img
 
 
 if __name__ == '__main__':
