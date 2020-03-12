@@ -2,7 +2,6 @@ import cv2
 import os, time, sys, shutil
 import numpy as np
 import matplotlib as plt
-from frames_to_opticalFlow import convertToOptical
 
 from optical_flow import convertToOpticalFlow
 
