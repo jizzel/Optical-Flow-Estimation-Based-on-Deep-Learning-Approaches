@@ -2,7 +2,7 @@ import cv2
 import os, time, sys, shutil
 import numpy as np
 
-from code.optical_flow import convertToOpticalFlow
+from optical_flow import convertToOpticalFlow
 
 PATH_DATA_FOLDER = './data/'
 
