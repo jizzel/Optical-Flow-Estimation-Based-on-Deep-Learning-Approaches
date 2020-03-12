@@ -7,22 +7,22 @@ from optical_flow import convertToOpticalFlow
 
 PATH_DATA_FOLDER = './data/'
 
-PATH_TRAIN_LABEL_PREPROCESSED = PATH_DATA_FOLDER +  'train_preprocessed.txt'
+PATH_TRAIN_LABEL_PREPROCESSED = PATH_DATA_FOLDER + 'train_preprocessed.txt'
 
-PATH_TRAIN_LABEL = PATH_DATA_FOLDER +  'train.txt'
+PATH_TRAIN_LABEL = PATH_DATA_FOLDER + 'train.txt'
 PATH_TRAIN_VIDEO = PATH_DATA_FOLDER + 'train.mp4'
 PATH_TRAIN_FLOW_VIDEO = PATH_DATA_FOLDER + 'flow_train.mp4'
-PATH_TRAIN_IMAGES_FOLDER = PATH_DATA_FOLDER +  'train_images/'
-PATH_TRAIN_IMAGES_FLOW_FOLDER = PATH_DATA_FOLDER +  'train_images_flow/'
+PATH_TRAIN_IMAGES_FOLDER = PATH_DATA_FOLDER + 'train_images/'
+PATH_TRAIN_IMAGES_FLOW_FOLDER = PATH_DATA_FOLDER + 'train_images_flow/'
 
-PATH_TEST_LABEL = PATH_DATA_FOLDER +  'test.txt'
+PATH_TEST_LABEL = PATH_DATA_FOLDER + 'test.txt'
 PATH_TEST_VIDEO = PATH_DATA_FOLDER + 'test.mp4'
 PATH_TEST_FLOW_VIDEO = PATH_DATA_FOLDER + 'flow_test.mp4'
-PATH_TEST_IMAGES_FOLDER = PATH_DATA_FOLDER +  'test_images/'
-PATH_TEST_IMAGES_FLOW_FOLDER = PATH_DATA_FOLDER +  'test_images_flow/'
+PATH_TEST_IMAGES_FOLDER = PATH_DATA_FOLDER + 'test_images/'
+PATH_TEST_IMAGES_FLOW_FOLDER = PATH_DATA_FOLDER + 'test_images_flow/'
+
 
 def preprocess_data(video_input_path, flow_video_output_path, image_folder_path, flow_image_folder_path, type):
-
     if os.path.exists(image_folder_path):
         shutil.rmtree(image_folder_path)
     os.makedirs(image_folder_path)
@@ -47,6 +47,8 @@ def preprocess_data(video_input_path, flow_video_output_path, image_folder_path,
     hsv = np.zeros_like(prev_frame)
 
     image_path_out = os.path.join(image_folder_path, str(0) + '.jpg')
+    print('image path: ', image_path_out)
+    print('frame: ', prev_frame)
     cv2.imwrite(image_path_out, prev_frame)
 
     count = 1
@@ -86,7 +88,6 @@ def preprocess_data(video_input_path, flow_video_output_path, image_folder_path,
         # else:
         #     sys.stdout.write('\rprocessed frames: %d of %d' % (count, num_frames))
 
-
     t2 = time.time()
     video_reader.release()
     video_writer.release()
@@ -112,15 +113,15 @@ def preprocess_data(video_input_path, flow_video_output_path, image_folder_path,
     #
     #     print(' New labels written !')
 
-
     return
 
+
 if __name__ == '__main__':
-
-
     '''PREPROCESS DATA DOES 3 THINGS:
         1. Convert video to optical flow and save their respective images
-        2. Augment image and optical flow data by Inverting them horizontally'''   ## NOW DONE IN TRAIN_MODEL.PY ITSELF IN GENERATOR DATA
+        2. Augment image and optical flow data by Inverting them horizontally'''  ## NOW DONE IN TRAIN_MODEL.PY ITSELF IN GENERATOR DATA
 
-    preprocess_data(PATH_TRAIN_VIDEO, PATH_TRAIN_FLOW_VIDEO, PATH_TRAIN_IMAGES_FOLDER, PATH_TRAIN_IMAGES_FLOW_FOLDER, type='train')
-    preprocess_data(PATH_TEST_VIDEO, PATH_TEST_FLOW_VIDEO, PATH_TEST_IMAGES_FOLDER, PATH_TEST_IMAGES_FLOW_FOLDER, type='test')
+    preprocess_data(PATH_TRAIN_VIDEO, PATH_TRAIN_FLOW_VIDEO, PATH_TRAIN_IMAGES_FOLDER, PATH_TRAIN_IMAGES_FLOW_FOLDER,
+                    type='train')
+    preprocess_data(PATH_TEST_VIDEO, PATH_TEST_FLOW_VIDEO, PATH_TEST_IMAGES_FOLDER, PATH_TEST_IMAGES_FLOW_FOLDER,
+                    type='test')
