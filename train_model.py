@@ -17,7 +17,7 @@ from keras.layers import Flatten, Dense, Lambda, Convolution2D, Cropping2D, Drop
 from keras.callbacks import EarlyStopping, ModelCheckpoint
 
 from PIL import Image
-from frames_to_opticalFlow import convertToOptical
+from optical_flow import convertToOpticalFlow
 
 PATH_DATA_FOLDER = './data/'
 PATH_TRAIN_LABEL = PATH_DATA_FOLDER +  'train.txt'
