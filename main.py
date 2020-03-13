@@ -48,7 +48,7 @@ def preprocess_data(video_input_path, flow_video_output_path, image_folder_path,
     ret, prev_frame = video_reader.read()
     hsv = np.zeros_like(prev_frame)
 
-    image_path_out = os.path.join(image_folder_path, str(0) + '.jpg')
+    image_path_out = os.path.join(image_folder_path, str(0) + '.png')
     print('image path: ', image_path_out)
     print('frame: ', prev_frame)
     cv2.imwrite(image_path_out, prev_frame)
@@ -63,8 +63,8 @@ def preprocess_data(video_input_path, flow_video_output_path, image_folder_path,
         bgr_flow = convertToOpticalFlow(prev_frame, next_frame)
         plt.imshow(bgr_flow)
 
-        image_path_out = os.path.join(image_folder_path, str(count) + '.jpg')
-        flow_image_path_out = os.path.join(flow_image_folder_path, str(count) + '.jpg')
+        image_path_out = os.path.join(image_folder_path, str(count) + '.png')
+        flow_image_path_out = os.path.join(flow_image_folder_path, str(count) + '.png')
 
         cv2.imwrite(image_path_out, next_frame)
         cv2.imwrite(flow_image_path_out, bgr_flow)

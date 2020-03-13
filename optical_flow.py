@@ -24,8 +24,8 @@ torch.backends.cudnn.enabled = True  # make sure to use cudnn for computational 
 ##########################################################
 
 arguments_strModel = 'sintel-final'
-arguments_strFirst = './images/first.png'
-arguments_strSecond = './images/second.png'
+# arguments_strFirst = './images/first.png'
+# arguments_strSecond = './images/second.png'
 arguments_strOut = './out.flo'
 
 for strOption, strArgument in \
@@ -200,16 +200,14 @@ def estimate(tensorFirst, tensorSecond):
 
 ##########################################################
 def convertToOpticalFlow(first_img, second_image):
-    tensorFirst = torch.FloatTensor(
-        numpy.array(PIL.Image.open(first_img))[:, :, ::-1].transpose(2, 0, 1).astype(numpy.float32) * (
-                1.0 / 255.0))
-    tensorSecond = torch.FloatTensor(
-        numpy.array(PIL.Image.open(second_image))[:, :, ::-1].transpose(2, 0, 1).astype(numpy.float32) * (
-                1.0 / 255.0))
+    tensorFirst = torch.FloatTensor(numpy.arra
+    PIL.Image.open(first_img))[:, :, ::-1].transpose(2, 0, 1).astype(numpy.float32) * (1.0 / 255.0))
+    tensorSecond = torch.FloatTensor(numpy.array(PIL.Image.open(second_image))[:, :, ::-1].transpose(2, 0, 1).astype(numpy.float32) * (1.0 / 255.0))
 
     ttensorOutput = estimate(tensorFirst, tensorSecond)
 
     objectOutput = open(arguments_strOut, 'wb')
+    print('numpy stage...')
 
     numpy.array([80, 73, 69, 72], numpy.uint8).tofile(objectOutput)
     numpy.array([tensorOutput.size(2), tensorOutput.size(1)], numpy.int32).tofile(objectOutput)
