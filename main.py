@@ -49,9 +49,9 @@ def preprocess_data(video_input_path, flow_video_output_path, image_folder_path,
     hsv = np.zeros_like(prev_frame)
 
     image_path_out = os.path.join(image_folder_path, str(0) + '.png')
-    print('image path: ', image_path_out)
-    print('frame: ', prev_frame)
     cv2.imwrite(image_path_out, prev_frame)
+
+    print('Starting now...')
 
     count = 1
     while True:
@@ -59,14 +59,16 @@ def preprocess_data(video_input_path, flow_video_output_path, image_folder_path,
         if next_frame is None:
             break
 
-        print('Starting now...')
         # bgr_flow = convertToOptical(prev_frame, next_frame)
         bgr_flow = convertToOpticalFlow(prev_frame, next_frame)
-        plt.imshow(bgr_flow)
+        plt.imshow('show: ', bgr_flow)
+        print('print flow image: ', bgr_flow)
 
         image_path_out = os.path.join(image_folder_path, str(count) + '.png')
         flow_image_path_out = os.path.join(flow_image_folder_path, str(count) + '.png')
 
+        print(image_path_out, next_frame)
+        print(flow_image_path_out, bgr_flow)
         cv2.imwrite(image_path_out, next_frame)
         cv2.imwrite(flow_image_path_out, bgr_flow)
 
@@ -74,6 +76,7 @@ def preprocess_data(video_input_path, flow_video_output_path, image_folder_path,
 
         prev_frame = next_frame
         count += 1
+        print('Counting ', count)
 
         '''FOR FLIP PREPROCESSING, CURRENTLY HANDLED IN GENERATE DATA IN TRAIN'''
         # if type == 'train':
