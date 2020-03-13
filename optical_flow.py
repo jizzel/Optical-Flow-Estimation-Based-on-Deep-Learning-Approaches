@@ -207,7 +207,7 @@ def convertToOpticalFlow(first_img, second_image):
     # tensorSecond = torch.FloatTensor(numpy.array(PIL.Image.open(second_image))[:, :, ::-1].transpose(2, 0, 1).astype(numpy.float32) * (1.0 / 255.0))
     print('numpy array: ', numpy.array(first_img))
 
-    ttensorOutput = estimate(tensorFirst, tensorSecond)
+    tensorOutput = estimate(tensorFirst, tensorSecond)
 
     objectOutput = open(arguments_strOut, 'wb')
     print('numpy stage...')
