@@ -61,7 +61,7 @@ def preprocess_data(video_input_path, flow_video_output_path, image_folder_path,
 
         # bgr_flow = convertToOptical(prev_frame, next_frame)
         bgr_flow = convertToOpticalFlow(prev_frame, next_frame)
-        plt.imshow('show: ', bgr_flow)
+        # plt.imshow('show: ', bgr_flow)
         print('print flow image: ', bgr_flow)
 
         image_path_out = os.path.join(image_folder_path, str(count) + '.png')
