@@ -1,7 +1,7 @@
 import cv2
 import os, time, sys, shutil
 import numpy as np
-import matplotlib as plt
+import matplotlib.pyplot as plt
 
 from optical_flow import convertToOpticalFlow
 
