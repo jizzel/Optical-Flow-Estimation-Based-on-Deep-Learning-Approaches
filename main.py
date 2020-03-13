@@ -59,6 +59,7 @@ def preprocess_data(video_input_path, flow_video_output_path, image_folder_path,
         if next_frame is None:
             break
 
+        print('Starting now...')
         # bgr_flow = convertToOptical(prev_frame, next_frame)
         bgr_flow = convertToOpticalFlow(prev_frame, next_frame)
         plt.imshow(bgr_flow)
