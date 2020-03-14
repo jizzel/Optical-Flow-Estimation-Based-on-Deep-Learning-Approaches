@@ -3,9 +3,6 @@ from keras.layers.convolutional import Convolution2D
 from keras.layers import Flatten, Dense, Lambda, Convolution2D, Cropping2D, Dropout, Reshape, BatchNormalization, ELU
 from keras.optimizers import Adam
 
-# importing cv2
-import cv2
-
 
 def CNNModel():
     model = Sequential()

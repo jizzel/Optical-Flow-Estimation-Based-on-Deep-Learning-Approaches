@@ -48,10 +48,10 @@ def prepareData(labels_path, images_path, flow_images_path, type=TYPE_FLOW_PRECO
 
             if type == TYPE_FLOW_PRECOMPUTED:
                 # Combine original and pre computed optical flow
-                train_images_pair_paths.append( ( os.getcwd() + images_path[1:] + str(i)+ '.jpg',  os.getcwd() + flow_images_path[1:] + str(i-3) + '.jpg',   os.getcwd() + flow_images_path[1:] + str(i-2) + '.jpg',   os.getcwd() + flow_images_path[1:] + str(i-1) + '.jpg',  os.getcwd() + flow_images_path[1:] + str(i) + '.jpg') )
+                train_images_pair_paths.append( ( os.getcwd() + images_path[1:] + str(i)+ '.png',  os.getcwd() + flow_images_path[1:] + str(i-3) + '.png',   os.getcwd() + flow_images_path[1:] + str(i-2) + '.png',   os.getcwd() + flow_images_path[1:] + str(i-1) + '.png',  os.getcwd() + flow_images_path[1:] + str(i) + '.png') )
             else:
                 # Combine 2 consecutive frames and calculate optical flow
-                train_images_pair_paths.append( ( os.getcwd() + images_path[1:] + str(i-1)+ '.jpg',  os.getcwd() + images_path[1:] + str(i) + '.jpg') )
+                train_images_pair_paths.append( ( os.getcwd() + images_path[1:] + str(i-1)+ '.png',  os.getcwd() + images_path[1:] + str(i) + '.png') )
 
     return train_images_pair_paths, train_labels
 
@@ -93,12 +93,12 @@ def generatorData(samples, batch_size=32, type=TYPE_FLOW_PRECOMPUTED):
                     prev_image_path, curr_image_path = imagePath
                     prev_image = cv2.imread(prev_image_path)
                     curr_image = cv2.imread(curr_image_path)
-                    flow_image_bgr = convertToOptical(prev_image, curr_image)
+                    flow_image_bgr = convertToOpticalFlow(prev_image, curr_image)
                     curr_image = cv2.cvtColor(curr_image, cv2.COLOR_BGR2RGB)
 
 
                 combined_image = 0.1*curr_image + flow_image_bgr
-                #CHOOSE IF WE WANT TO TEST WITH ONLY OPTICAL FLOW OR A COMBINATION OF VIDEO AND OPTICAL FLOW
+                # CHOOSE IF WE WANT TO TEST WITH ONLY OPTICAL FLOW OR A COMBINATION OF VIDEO AND OPTICAL FLOW
                 combined_image = flow_image_bgr
 
                 combined_image = cv2.normalize(combined_image, None, alpha=-1, beta=1, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_32F)
@@ -157,7 +157,6 @@ if __name__ == '__main__':
     print(history_object.history['loss'])
     print('Validation Loss')
     print(history_object.history['val_loss'])
-
 
     plt.figure(figsize=[10,8])
     plt.plot(np.arange(1, len(history_object.history['loss'])+1), history_object.history['loss'],'r',linewidth=3.0)
