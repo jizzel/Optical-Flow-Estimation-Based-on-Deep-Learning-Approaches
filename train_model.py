@@ -75,10 +75,6 @@ def generatorData(samples, batch_size=32, type=TYPE_FLOW_PRECOMPUTED):
                     # curr_image_path, flow_image_path = imagePath
                     # flow_image_bgr = cv2.imread(flow_image_path)
                     curr_image_path, flow_image_path1, flow_image_path2,flow_image_path3, flow_image_path4 = imagePath
-                    print(flow_image_path1)
-                    print(flow_image_path2)
-                    print(flow_image_path3)
-                    print(flow_image_path4)
                     path1 = cv2.imread(flow_image_path1)
                     path2 = cv2.imread(flow_image_path2)
                     path3 = cv2.imread(flow_image_path3)
@@ -103,10 +99,6 @@ def generatorData(samples, batch_size=32, type=TYPE_FLOW_PRECOMPUTED):
 
                 combined_image = cv2.normalize(combined_image, None, alpha=-1, beta=1, norm_type=cv2.NORM_MINMAX, dtype=cv2.CV_32F)
                 combined_image = cv2.resize(combined_image, (0,0), fx=0.5, fy=0.5)
-
-                # im = Image.fromarray(combined_image)
-                # plt.imshow(im)
-                # plt.show()
 
                 images.append(combined_image)
                 angles.append(measurement)
