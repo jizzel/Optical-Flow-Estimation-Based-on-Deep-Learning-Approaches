@@ -1,5 +1,5 @@
-# from model2 import CNNModel
-from model import CNNModel
+from model2 import CNNModel
+# from model import CNNModel
 
 import cv2
 import numpy as np

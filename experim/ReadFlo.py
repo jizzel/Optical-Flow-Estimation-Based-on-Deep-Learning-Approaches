@@ -1,5 +1,6 @@
 from pathlib import Path
 
+import cv2
 import numpy as np
 import PIL
 
@@ -18,10 +19,16 @@ from PIL import Image
 # print(img3)
 # img.show()
 
-np.array(
-  PIL.Image.open(r"D:\Master Thesis Dataset\pycharm\Optical Flow\experim\first.png")
-  )[:, :, ::-1].transpose(2, 0, 1).astype(np.float32) * (1.0 / 255.0)
-
+# video_reader = cv2.VideoCapture('./data/train.mp4')
+# # print('video path: ', video_input_path)
+# print('video reader: ', video_reader)
+#
+# num_frames = video_reader.get(cv2.CAP_PROP_FRAME_COUNT)
+# frame_size = (int(video_reader.get(cv2.CAP_PROP_FRAME_WIDTH)), int(video_reader.get(cv2.CAP_PROP_FRAME_HEIGHT)))
+# fps = int(video_reader.get(cv2.CAP_PROP_FPS))
+# fourcc = 0x00000021
+# video_writer = cv2.VideoWriter('./experiment', fourcc, fps, frame_size)
+# video_writer.write('./first.png')
 # path = Path('out.flo')
 # with path.open(mode='r') as flo:
 #     np_flow = np.fromfile(flo, np.float32)
