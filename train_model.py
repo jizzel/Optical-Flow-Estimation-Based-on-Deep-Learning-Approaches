@@ -1,5 +1,5 @@
-from model2 import CNNModel
-# from model import CNNModel
+# from model2 import CNNModel
+from model import CNNModel
 
 import cv2
 import numpy as np
@@ -28,7 +28,7 @@ TYPE_FLOW_PRECOMPUTED = 0
 TYPE_ORIGINAL = 1
 
 BATCH_SIZE = 128
-EPOCH = 50
+EPOCH = 100
 
 MODEL_NAME = 'CNNModel_flow'
 # MODEL_NAME = 'CNNModel_combined'
