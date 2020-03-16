@@ -41,7 +41,8 @@ def preprocess_data(video_input_path, flow_video_output_path, image_folder_path,
     fps = int(video_reader.get(cv2.CAP_PROP_FPS))
 
     # fourcc = cv2.VideoWriter_fourcc(*'XVID')
-    fourcc = 0x00000021
+    fourcc = cv2.VideoWriter_fourcc('M', 'J', 'P', 'G')
+    # fourcc = 0x00000021
     video_writer = cv2.VideoWriter(flow_video_output_path, fourcc, fps, frame_size)
 
     t1 = time.time()
