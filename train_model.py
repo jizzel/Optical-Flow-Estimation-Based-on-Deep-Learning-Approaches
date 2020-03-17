@@ -27,8 +27,8 @@ PATH_TRAIN_IMAGES_FLOW_FOLDER = PATH_DATA_FOLDER +  'train_images_flow/'
 TYPE_FLOW_PRECOMPUTED = 0
 TYPE_ORIGINAL = 1
 
-BATCH_SIZE = 256
-EPOCH = 100
+BATCH_SIZE = 96
+EPOCH = 200
 
 MODEL_NAME = 'CNNModel_flow'
 # MODEL_NAME = 'CNNModel_combined'
@@ -144,7 +144,6 @@ if __name__ == '__main__':
 
     print('Training model complete...')
 
-    print(history_object.history.keys())
     print('Loss')
     print(history_object.history['loss'])
     print('Validation Loss')
