@@ -33,7 +33,8 @@ def predict_from_video(video_input_path, original_video_output_path, combined_vi
     fps = int(video_reader.get(cv2.CAP_PROP_FPS))
 
     # fourcc = cv2.VideoWriter_fourcc(*'XVID')
-    fourcc = 0x00000021
+    # fourcc = 0x00000021
+    fourcc = cv2.VideoWriter_fourcc('M', 'J', 'P', 'G')
     video_writer = cv2.VideoWriter(original_video_output_path, fourcc, fps, frame_size)
     video_writer_combined = cv2.VideoWriter(combined_video_output_path, fourcc, fps, frame_size)
 
