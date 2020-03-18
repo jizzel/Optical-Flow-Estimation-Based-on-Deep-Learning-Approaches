@@ -208,7 +208,6 @@ def convertToOpticalFlow(first_img, second_image):
     tensorOutput = estimate(tensorFirst, tensorSecond)
 
     objectOutput = open(arguments_strOut, 'wb')
-    print('numpy stage...')
 
     numpy.array([80, 73, 69, 72], numpy.uint8).tofile(objectOutput)
     numpy.array([tensorOutput.size(2), tensorOutput.size(1)], numpy.int32).tofile(objectOutput)
@@ -219,7 +218,7 @@ def convertToOpticalFlow(first_img, second_image):
     files = glob.glob(arguments_strOut)
     img = fz.convert_from_file(files[0])
 
-    print('returning flo: ')
+    # print('returning flo: ')
 
     return img
 
