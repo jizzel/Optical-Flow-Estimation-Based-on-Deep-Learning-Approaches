@@ -119,7 +119,7 @@ if __name__ == '__main__':
     # type_ = TYPE_FLOW_PRECOMPUTED   ## optical flow pre computed
     type = TYPE_ORIGINAL
 
-    train_images_pair_paths, train_labels =  prepareData(PATH_TRAIN_LABEL, PATH_TRAIN_IMAGES_FOLDER, PATH_TRAIN_IMAGES_FLOW_FOLDER, type=type_)
+    train_images_pair_paths, train_labels =  prepareData(PATH_TRAIN_LABEL, PATH_TRAIN_IMAGES_FOLDER, PATH_TRAIN_IMAGES_FLOW_FOLDER, type=type)
 
     samples = list(zip(train_images_pair_paths, train_labels))
     train_samples, validation_samples = train_test_split(samples, test_size=0.2)
