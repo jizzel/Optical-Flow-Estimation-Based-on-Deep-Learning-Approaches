@@ -116,8 +116,8 @@ def generatorData(samples, batch_size=32, type=TYPE_FLOW_PRECOMPUTED):
 
 if __name__ == '__main__':
 
-    type_ = TYPE_FLOW_PRECOMPUTED   ## optical flow pre computed
-    # type = TYPE_ORIGINAL
+    # type_ = TYPE_FLOW_PRECOMPUTED   ## optical flow pre computed
+    type = TYPE_ORIGINAL
 
     train_images_pair_paths, train_labels =  prepareData(PATH_TRAIN_LABEL, PATH_TRAIN_IMAGES_FOLDER, PATH_TRAIN_IMAGES_FLOW_FOLDER, type=type_)
 

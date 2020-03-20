@@ -21,7 +21,7 @@ def CNNModel():
     model.add(Dense(100, init = 'he_normal'))
     model.add(ELU())
     model.add(Dense(50, init = 'he_normal'))
-    # model.add(Dropout(0.5))
+    model.add(Dropout(0.5))
     model.add(ELU())
     model.add(Dense(10, init = 'he_normal'))
     model.add(ELU())

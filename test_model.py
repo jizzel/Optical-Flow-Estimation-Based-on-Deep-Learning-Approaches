@@ -14,8 +14,8 @@ PATH_COMBINED_TEST_VIDEO_OUTPUT = PATH_DATA_FOLDER + 'combined_test_output.mp4'
 PATH_TEST_IMAGES_FOLDER = PATH_DATA_FOLDER + 'test_images/'
 PATH_TEST_IMAGES_FLOW_FOLDER = PATH_DATA_FOLDER + 'test_images_flow/'
 
-TYPE_FLOW_PRECOMPUTED = 0
-TYPE_ORIGINAL = 1
+# TYPE_FLOW_PRECOMPUTED = 0
+# TYPE_ORIGINAL = 1
 
 MODEL_NAME = 'CNNModel_flow'
 # MODEL_NAME = 'CNNModel_combined'
@@ -51,7 +51,8 @@ def predict_from_video(video_input_path, original_video_output_path, combined_vi
     flow_image_bgr_prev3 = np.zeros_like(prev_frame)
     flow_image_bgr_prev4 = np.zeros_like(prev_frame)
 
-    font = cv2.FONT_HERSHEY_SIMPLEX
+    # font = cv2.FONT_HERSHEY_SIMPLEX
+    font = cv2.FONT_HERSHEY_SCRIPT_SIMPLEX
     place = (50, 50)
     fontScale = 1
     fontColor = (255, 255, 255)
@@ -75,6 +76,7 @@ def predict_from_video(video_input_path, original_video_output_path, combined_vi
         combined_image = flow_image_bgr
         # combined_image = combined_image_save
 
+        # check this Joseph
         combined_image_test = cv2.normalize(combined_image, None, alpha=-1, beta=1, norm_type=cv2.NORM_MINMAX,
                                             dtype=cv2.CV_32F)
 
