@@ -2,6 +2,7 @@ import cv2
 import os, time, sys, shutil
 import numpy as np
 import matplotlib.pyplot as plt
+from enhance_image import *
 
 from optical_flow import convertToOpticalFlow
 
@@ -59,6 +60,8 @@ def preprocess_data(video_input_path, flow_video_output_path, image_folder_path,
         ret, next_frame = video_reader.read()
         if next_frame is None:
             break
+        prev_frame = elaborateImage(prev_frame)
+        next_frame = elaborateImage(next_frame)
 
         bgr_flow = convertToOpticalFlow(prev_frame, next_frame)
 
