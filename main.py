@@ -60,8 +60,12 @@ def preprocess_data(video_input_path, flow_video_output_path, image_folder_path,
         ret, next_frame = video_reader.read()
         if next_frame is None:
             break
+        print('before: ', prev_frame)
+
         prev_frame = elaborateImage(prev_frame)
         next_frame = elaborateImage(next_frame)
+
+        print('after: ', prev_frame)
 
         bgr_flow = convertToOpticalFlow(prev_frame, next_frame)
 
