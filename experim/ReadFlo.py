@@ -5,8 +5,8 @@ import numpy as np
 import PIL
 
 from PIL import Image
-# im = Image.open("first.png")
-# im.rotate(145).show()
+im = Image.open("first.png")
+im.rotate(145).show()
 
 # creating gif image object
 # img = Image.open("time.gif")
