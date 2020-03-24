@@ -65,7 +65,6 @@ def preprocess_data(video_input_path, flow_video_output_path, image_folder_path,
 
         prev_frame = elaborateImage(prev_frame)
         next_frame = elaborateImage(next_frame)
-        np.set_printoptions(threshold=np.nan)
 
         print('after: ', prev_frame)
         print('dimensions: ', prev_frame.shape)
