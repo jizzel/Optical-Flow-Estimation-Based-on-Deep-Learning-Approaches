@@ -165,8 +165,8 @@ moduleNetwork = Network().cuda().eval()
 ##########################################################
 
 def estimate(tensorFirst, tensorSecond):
-    assert (tensorFirst.size(1) == tensorSecond.size(1))
-    assert (tensorFirst.size(2) == tensorSecond.size(2))
+    # assert (tensorFirst.size(1) == tensorSecond.size(1))
+    # assert (tensorFirst.size(2) == tensorSecond.size(2))
 
     intWidth = tensorFirst.size(2)
     intHeight = tensorFirst.size(1)
