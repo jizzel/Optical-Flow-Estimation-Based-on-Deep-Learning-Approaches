@@ -6,7 +6,8 @@ from keras.optimizers import Adam
 
 def CNNModel():
     model = Sequential()
-    model.add(Convolution2D(24, 5, 5, input_shape = (240, 320, 3), subsample=(2,2), init = 'he_normal'))
+    # model.add(Convolution2D(24, 5, 5, input_shape = (240, 320, 3), subsample=(2,2), init = 'he_normal'))
+    model.add(Convolution2D(24, 5, 5, input_shape = (62, 320, 3), subsample=(2,2), init = 'he_normal'))
     model.add(ELU())
     model.add(Convolution2D(36, 5, 5, subsample=(2,2), init = 'he_normal'))
     model.add(ELU())
