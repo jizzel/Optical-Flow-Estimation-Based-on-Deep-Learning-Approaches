@@ -5,4 +5,5 @@
 .idea/*.iml
 .idea/*.xml
 /.OFEBDA.pptx
+__pycache__/*
 
