@@ -63,7 +63,7 @@ def preprocess_data(video_input_path, flow_video_output_path, image_folder_path,
         print('dimension: ', prev_frame.shape)
         print('before: ', prev_frame)
 
-        prev_frame = elaborateImage(prev_frame)
+        # prev_frame = elaborateImage(prev_frame)
         next_frame = elaborateImage(next_frame)
 
         print('after: ', prev_frame)
@@ -78,10 +78,10 @@ def preprocess_data(video_input_path, flow_video_output_path, image_folder_path,
         cv2.imwrite(flow_image_path_out, bgr_flow)
 
         video_writer.write(bgr_flow)
+        print('Counting ', count)
 
         prev_frame = next_frame
         count += 1
-        print('Counting ', count)
 
     t2 = time.time()
     video_reader.release()

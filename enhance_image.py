@@ -16,6 +16,8 @@ def highlightRoadLaneMarkings(newFrame):
 
     # Applying canny edge detection
     newFrameEdges = cv2.Canny(newFrameBlurred, 100, 200)
+    # cv2.imshow('hhh', newFrameEdges)
+    # cv2.waitKey(10000)
 
     # Cutting a region of interest
     height, width = newFrameEdges.shape
@@ -30,6 +32,8 @@ def highlightRoadLaneMarkings(newFrame):
     polygonalShape = cv2.fillPoly(blackImage, [pts], (255, 255, 255))
     # Doing AND operation with newFrameEdges
     newFrameROI = cv2.bitwise_and(newFrameEdges, newFrameEdges, mask=polygonalShape)
+    # cv2.imshow('highlight', newFrameROI)
+
 
     return newFrameROI
 
@@ -57,7 +61,9 @@ def elaborateImage(newFrame):
 
     # Cutting image basing on mask size
     result = cutTopAndBottom(coloredMaskedRoad, int(height / 2 - 15), int(height - 130))
-    # convert back to BRG
+    # convert back to BRG/jaa
     result = cv2.cvtColor(result, cv2.COLOR_GRAY2BGR)
+    # cv2.imshow('res', result)
+    # cv2.waitKey(10000)
 
     return result

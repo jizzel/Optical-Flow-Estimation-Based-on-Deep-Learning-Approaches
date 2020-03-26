@@ -7,7 +7,9 @@ from enhance_image import elaborateImage
 
 BLUE = [255, 0, 0]
 img1 = cv.imread('first.png')
-elaborateImage(img1)
+img = elaborateImage(img1)
+cv.imshow('Image', img)
+cv.waitKey(10000)
 # replicate = cv.copyMakeBorder(img1, 10, 10, 10, 10, cv.BORDER_REPLICATE)
 # reflect = cv.copyMakeBorder(img1, 10, 10, 10, 10, cv.BORDER_REFLECT)
 # reflect101 = cv.copyMakeBorder(img1, 10, 10, 10, 10, cv.BORDER_REFLECT_101)
