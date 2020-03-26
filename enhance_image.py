@@ -38,7 +38,9 @@ def highlightRoadLaneMarkings(newFrame):
 def elaborateImage(newFrame):
     # Drawing road from original frame
     newFrameAdjusted = apply_brightness_contrast(newFrame, 30, 15)
+    print('new frameAdjusted: ', newFrameAdjusted)
     newFrameGrey = cv2.cvtColor(newFrameAdjusted, cv2.COLOR_BGR2GRAY)
+    print('new frameGrey: ', newFrameGrey)
     height, width = newFrameGrey.shape
     bottomLeft = [0, height - 130]
     topLeft = [0, height / 2 + 10]
@@ -57,5 +59,6 @@ def elaborateImage(newFrame):
 
     # Cutting image basing on mask size
     result = cutTopAndBottom(coloredMaskedRoad, int(height / 2 - 15), int(height - 130))
+    print('result: ', result)
 
     return result
