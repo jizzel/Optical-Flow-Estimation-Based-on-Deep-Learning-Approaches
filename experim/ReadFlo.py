@@ -1,3 +1,4 @@
+import sys
 from pathlib import Path
 import cv2 as cv
 import numpy as np
@@ -5,11 +6,14 @@ from matplotlib import pyplot as plt
 
 from enhance_image import elaborateImage
 
-BLUE = [255, 0, 0]
-img1 = cv.imread('first.png')
-img = elaborateImage(img1)
-cv.imshow('Image', img)
-cv.waitKey(10000)
+# BLUE = [255, 0, 0]
+# img1 = cv.imread('first.png')
+# img = elaborateImage(img1)
+# cv.imshow('Image', img)
+# cv.waitKey(10000)
+count = 1
+sys.stdout.write('\rprocessed frames: %s of %d' % ('count', count))
+sys.stdout.write('\rprocessed frames: %d' % count)
 # replicate = cv.copyMakeBorder(img1, 10, 10, 10, 10, cv.BORDER_REPLICATE)
 # reflect = cv.copyMakeBorder(img1, 10, 10, 10, 10, cv.BORDER_REFLECT)
 # reflect101 = cv.copyMakeBorder(img1, 10, 10, 10, 10, cv.BORDER_REFLECT_101)

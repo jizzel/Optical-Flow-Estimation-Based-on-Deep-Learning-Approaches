@@ -135,7 +135,7 @@ if __name__ == '__main__':
 
     model = CNNModel()
 
-    callbacks = [EarlyStopping(monitor='val_loss', patience=3),
+    callbacks = [EarlyStopping(monitor='val_loss', patience=2),
              ModelCheckpoint(filepath='best'+MODEL_NAME+'.h5', monitor='val_loss', save_best_only=True)]
 
     history_object = model.fit_generator(training_generator, samples_per_epoch= \

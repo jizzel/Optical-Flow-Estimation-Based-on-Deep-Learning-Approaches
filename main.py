@@ -61,14 +61,14 @@ def preprocess_data(video_input_path, flow_video_output_path, image_folder_path,
         ret, next_frame = video_reader.read()
         if next_frame is None:
             break
-        print('before dimension: ', prev_frame.shape)
-        print('before frame: ', prev_frame)
+        # print('before dimension: ', prev_frame.shape)
+        # print('before frame: ', prev_frame)
 
         # prev_frame = elaborateImage(prev_frame)
         next_frame = elaborateImage(next_frame)
 
-        print('after frame: ', prev_frame)
-        print('after dimension: ', prev_frame.shape)
+        # print('after frame: ', prev_frame)
+        # print('after dimension: ', prev_frame.shape)
 
         bgr_flow = convertToOpticalFlow(prev_frame, next_frame)
 
@@ -79,7 +79,8 @@ def preprocess_data(video_input_path, flow_video_output_path, image_folder_path,
         cv2.imwrite(flow_image_path_out, bgr_flow)
 
         video_writer.write(bgr_flow)
-        print('Counting ', count)
+        # print('Counting ', count)
+        sys.stdout.write('\rprocessed frames: %d' % count)
 
         prev_frame = next_frame
         count += 1
