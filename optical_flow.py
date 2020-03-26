@@ -213,7 +213,7 @@ def convertToOpticalFlow(first_img, second_image):
 
     numpy.array([80, 73, 69, 72], numpy.uint8).tofile(objectOutput)
     numpy.array([tensorOutput.size(2), tensorOutput.size(1)], numpy.int32).tofile(objectOutput)
-    numpy.array(tensorOutput.numpy().transpose(1, 2, 0), numpy.float32).tofile(objectOutput)
+    numpy.array(tensorOutput.detach().numpy().transpose(1, 2, 0), numpy.float32).tofile(objectOutput)
 
     objectOutput.close()
 
