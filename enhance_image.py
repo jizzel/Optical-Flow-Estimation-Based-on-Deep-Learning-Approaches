@@ -50,11 +50,13 @@ def elaborateImage(newFrame):
     topRight = [width, height / 2 + 10]
     bottomRight = [width, height - 130]
     pts = np.array([bottomLeft, topLeft, topCenter, topRight, bottomRight], np.int32)
+    # print('pts: ', pts)
+    # pts = np.array([[0,286],[0,218],[512,193],[1024,218],[1024,286]], np.int32)
     pts = pts.reshape((-1, 1, 2))
     blackImage = np.zeros((height, width, 1), np.uint8)
+    print(height,width)
     polygonalShape = cv2.fillPoly(blackImage, [pts], (255, 255, 255))
     coloredMaskedRoad = cv2.bitwise_and(newFrameGrey, newFrameGrey, mask=polygonalShape)
-    # coloredMaskedRoad = cv2.equalizeHist(coloredMaskedRoad)
     newFrameROI = highlightRoadLaneMarkings(newFrame)
     newFrameMaskAndRoad = cv2.add(coloredMaskedRoad,
                                   newFrameROI)  # Adding canny edge overlay to highlight the lane markers
@@ -63,7 +65,16 @@ def elaborateImage(newFrame):
     result = cutTopAndBottom(coloredMaskedRoad, int(height / 2 - 15), int(height - 130))
     # convert back to BRG/jaa
     result = cv2.cvtColor(result, cv2.COLOR_GRAY2BGR)
-    # cv2.imshow('res', result)
-    # cv2.waitKey(10000)
+    result = reshape(result)
 
     return result
+
+
+# reshape to 640 x 480 frame size/jaa
+def reshape(img):
+    im = cv2.resize(img, (640, img.shape[0]))
+
+    color = [0, 0, 0]
+    new_im = cv2.copyMakeBorder(im, 178, 177, 0, 0, cv2.BORDER_CONSTANT, value=color)
+
+    return new_im

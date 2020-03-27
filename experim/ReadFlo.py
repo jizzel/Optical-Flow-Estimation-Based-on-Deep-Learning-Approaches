@@ -1,19 +1,54 @@
 import sys
 from pathlib import Path
-import cv2 as cv
+import cv2
 import numpy as np
 from matplotlib import pyplot as plt
+import glob
 
 from enhance_image import elaborateImage
+
+img = cv2.imread('0.png', cv2.IMREAD_UNCHANGED)
+img = elaborateImage(img)
+
+# get dimensions of image
+# first.png 416 1024 3
+# 2.png 125, 640, 3
+# 1.png 480, 640, 3
+# height, width, number of channels in image
+new_size = (480, 640)
+# new_size = (512, 1025)
+# print(new_size[1], new_size[0], img.shape[0])
+im = cv2.resize(img, (640, img.shape[0]))
+
+color = [0, 0, 0]
+new_im = cv2.copyMakeBorder(im, 178, 177, 0, 0, cv2.BORDER_CONSTANT,
+    value=color)
+cv2.imwrite('new2.png', new_im)
+
 
 # BLUE = [255, 0, 0]
 # img1 = cv.imread('first.png')
 # img = elaborateImage(img1)
 # cv.imshow('Image', img)
 # cv.waitKey(10000)
-count = 1
-sys.stdout.write('\rprocessed frames: %s of %d' % ('count', count))
-sys.stdout.write('\rprocessed frames: %d' % count)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# count = 1
+# sys.stdout.write('\rprocessed frames: %s of %d' % ('count', count))
+# sys.stdout.write('\rprocessed frames: %d' % count)
 # replicate = cv.copyMakeBorder(img1, 10, 10, 10, 10, cv.BORDER_REPLICATE)
 # reflect = cv.copyMakeBorder(img1, 10, 10, 10, 10, cv.BORDER_REFLECT)
 # reflect101 = cv.copyMakeBorder(img1, 10, 10, 10, 10, cv.BORDER_REFLECT_101)
