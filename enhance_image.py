@@ -54,7 +54,7 @@ def elaborateImage(newFrame):
     # pts = np.array([[0,286],[0,218],[512,193],[1024,218],[1024,286]], np.int32)
     pts = pts.reshape((-1, 1, 2))
     blackImage = np.zeros((height, width, 1), np.uint8)
-    print(height,width)
+
     polygonalShape = cv2.fillPoly(blackImage, [pts], (255, 255, 255))
     coloredMaskedRoad = cv2.bitwise_and(newFrameGrey, newFrameGrey, mask=polygonalShape)
     newFrameROI = highlightRoadLaneMarkings(newFrame)
