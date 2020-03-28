@@ -29,6 +29,6 @@ def CNNModel():
     model.add(Dense(1, init = 'he_normal'))
 
     adam = Adam(lr=1e-4)
-    model.compile(optimizer = adam, loss = 'mse', metrics=['accuracy'])
+    model.compile(optimizer = adam, loss = 'mse', metrics=['accuracy', 'mse'])
 
     return model
