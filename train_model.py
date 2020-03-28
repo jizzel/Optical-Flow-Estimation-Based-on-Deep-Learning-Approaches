@@ -135,7 +135,7 @@ if __name__ == '__main__':
 
     model = CNNModel()
 
-    callbacks = [EarlyStopping(monitor='val_loss', patience=2),
+    callbacks = [EarlyStopping(monitor='val_loss', patience=3),
              ModelCheckpoint(filepath='best'+MODEL_NAME+'.h5', monitor='val_loss', save_best_only=True)]
 
     history_object = model.fit_generator(training_generator, samples_per_epoch= \
@@ -144,17 +144,17 @@ if __name__ == '__main__':
 
     print('Training model complete...')
 
-    print('Loss')
+    print('Loss: ')
     print(history_object.history['loss'])
-    print('Validation Loss')
+    print('Validation Loss: ')
     print(history_object.history['val_loss'])
 
     plt.figure(figsize=[10,8])
     plt.plot(np.arange(1, len(history_object.history['loss'])+1), history_object.history['loss'],'r',linewidth=3.0)
     plt.plot(np.arange(1, len(history_object.history['val_loss'])+1), history_object.history['val_loss'],'b',linewidth=3.0)
-    plt.legend(['Training loss', 'Validation Loss'],fontsize=18)
-    plt.xlabel('Epochs ',fontsize=16)
-    plt.ylabel('Loss',fontsize=16)
-    plt.title('Loss Curves',fontsize=16)
+    plt.legend(['Training loss', 'Validation Loss'], fontsize=18)
+    plt.xlabel('Epochs ', fontsize=16)
+    plt.ylabel('Loss', fontsize=16)
+    plt.title('Loss Curves', fontsize=16)
     plt.show()
     plt.savefig('graph.png')
