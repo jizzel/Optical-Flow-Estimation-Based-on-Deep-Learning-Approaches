@@ -75,8 +75,6 @@ def generatorData(samples, batch_size=32, type=TYPE_FLOW_PRECOMPUTED):
 
                 if type == TYPE_FLOW_PRECOMPUTED:
 
-                    # curr_image_path, flow_image_path = imagePath
-                    # flow_image_bgr = cv2.imread(flow_image_path)
                     curr_image_path, flow_image_path1, flow_image_path2, flow_image_path3, flow_image_path4 = imagePath
                     path1 = cv2.imread(flow_image_path1)
                     path2 = cv2.imread(flow_image_path2)
@@ -141,12 +139,6 @@ if __name__ == '__main__':
     callbacks = [EarlyStopping(monitor='val_loss', patience=3),
                  ModelCheckpoint(filepath='best' + MODEL_NAME + '.h5', monitor='val_loss', save_best_only=True)]
 
-    # history_object = model.fit_generator(training_generator,
-    #                                      samples_per_epoch=len(train_samples) // BATCH_SIZE,
-    #                                      validation_data=validation_generator,
-    #                                      validation_steps=len(validation_samples) // BATCH_SIZE,
-    #                                      callbacks=callbacks,
-    #                                      epochs=EPOCH, verbose=1)
     history_object = model.fit_generator(
         training_generator,
         len(train_samples) // BATCH_SIZE,
@@ -159,7 +151,7 @@ if __name__ == '__main__':
         workers=1,
         initial_epoch=0,
         use_multiprocessing=False,
-        max_queue_size=10, )
+        max_queue_size=10)
 
     print('Training model complete...')
 
@@ -180,21 +172,21 @@ if __name__ == '__main__':
     plt.savefig('graph.png')
 
     # Plot training & validation accuracy values
-plt.plot(history_object.history['acc'])
-plt.plot(history_object.history['val_acc'])
-plt.title('Model accuracy')
-plt.ylabel('Accuracy')
-plt.xlabel('Epoch')
-plt.legend(['Train', 'Test'], loc='upper left')
-plt.show()
-plt.savefig('ModelAcc.png')
+    plt.plot(history_object.history['acc'])
+    plt.plot(history_object.history['val_acc'])
+    plt.title('Model accuracy')
+    plt.ylabel('Accuracy')
+    plt.xlabel('Epoch')
+    plt.legend(['Train', 'Test'], loc='upper left')
+    plt.show()
+    plt.savefig('ModelAcc.png')
 
-# Plot training & validation loss values
-plt.plot(history_object.history['loss'])
-plt.plot(history_object.history['val_loss'])
-plt.title('Model loss')
-plt.ylabel('Loss')
-plt.xlabel('Epoch')
-plt.legend(['Train', 'Test'], loc='upper left')
-plt.show()
-plt.savefig('ModelLoss.png')
+    # Plot training & validation loss values
+    plt.plot(history_object.history['loss'])
+    plt.plot(history_object.history['val_loss'])
+    plt.title('Model loss')
+    plt.ylabel('Loss')
+    plt.xlabel('Epoch')
+    plt.legend(['Train', 'Test'], loc='upper left')
+    plt.show()
+    plt.savefig('ModelLoss.png')
