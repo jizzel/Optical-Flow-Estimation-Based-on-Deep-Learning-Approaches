@@ -75,7 +75,7 @@ def CNNModel():
 
     # Compilation
     model.compile(Adam(lr=0.001),
-                  loss="mse",
-                  metrics=["mse"])
+                  loss='mse',
+                  metrics=['accuracy', 'mse'])
 
     return model
