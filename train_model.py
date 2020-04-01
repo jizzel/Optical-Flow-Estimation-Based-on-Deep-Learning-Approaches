@@ -1,6 +1,6 @@
 # from model2 import CNNModel
-from model3 import CNNModel
-# from model import CNNModel
+# from model3 import CNNModel
+from model import CNNModel
 
 import cv2
 import numpy as np
@@ -39,7 +39,6 @@ def prepareData(labels_path, images_path, flow_images_path, type=TYPE_FLOW_PRECO
 
     with open(labels_path) as txt_file:
         labels_string = txt_file.read().split()
-        print(labels_string, 'len: ', len(labels_string))
 
         for i in range(4, len(labels_string)):
             speed = float(labels_string[i])
