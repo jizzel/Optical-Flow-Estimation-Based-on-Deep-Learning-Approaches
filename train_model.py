@@ -80,8 +80,7 @@ def generatorData(samples, batch_size=32, type=TYPE_FLOW_PRECOMPUTED):
                     path2 = cv2.imread(flow_image_path2)
                     path3 = cv2.imread(flow_image_path3)
                     path4 = cv2.imread(flow_image_path4)
-
-                    a = (path1+path2+path3+path4)
+                    a = (path1 + path2 + path3 + path4)
                     flow_image_bgr = a / 4
 
                     curr_image = cv2.imread(curr_image_path)
@@ -147,7 +146,12 @@ if __name__ == '__main__':
         verbose=1,
         callbacks=callbacks,
         validation_data=validation_generator,
-        validation_steps=len(validation_samples) // BATCH_SIZE)
+        validation_steps=len(validation_samples) // BATCH_SIZE,
+        class_weight=None,
+        workers=1,
+        initial_epoch=0,
+        use_multiprocessing=False,
+        max_queue_size=10)
 
     print('Training model complete...')
 
@@ -168,8 +172,8 @@ if __name__ == '__main__':
     plt.savefig('graph.png')
 
     # Plot training & validation accuracy values
-    plt.plot(np.arange(1, len(history_object.history['acc']) + 1), history_object.history['acc'], 'r', linewidth=3.0)
-    plt.plot(np.arange(1, len(history_object.history['val_acc']) + 1), history_object.history['val_acc'], 'b', linewidth=3.0)
+    plt.plot(history_object.history['acc'])
+    plt.plot(history_object.history['val_acc'])
     plt.title('Model accuracy')
     plt.ylabel('Accuracy')
     plt.xlabel('Epoch')
