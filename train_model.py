@@ -147,8 +147,7 @@ if __name__ == '__main__':
         callbacks=callbacks,
         validation_data=validation_generator,
         validation_steps=len(validation_samples) // BATCH_SIZE,
-        class_weight=None,
-        workers=1)
+        class_weight=None)
 
     print('Training model complete...')
 
