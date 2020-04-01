@@ -148,8 +148,7 @@ if __name__ == '__main__':
         validation_data=validation_generator,
         validation_steps=len(validation_samples) // BATCH_SIZE,
         class_weight=None,
-        workers=1,
-        initial_epoch=0)
+        workers=1)
 
     print('Training model complete...')
 
