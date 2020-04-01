@@ -80,6 +80,10 @@ def generatorData(samples, batch_size=32, type=TYPE_FLOW_PRECOMPUTED):
                     path2 = cv2.imread(flow_image_path2)
                     path3 = cv2.imread(flow_image_path3)
                     path4 = cv2.imread(flow_image_path4)
+                    print(path1)
+                    print(path2)
+                    print(path3)
+                    print(path4)
                     a = (path1 + path2 + path3 + path4)
                     flow_image_bgr = a / 4
 
