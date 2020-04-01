@@ -39,10 +39,12 @@ def prepareData(labels_path, images_path, flow_images_path, type=TYPE_FLOW_PRECO
 
     with open(labels_path) as txt_file:
         labels_string = txt_file.read().split()
+        print(labels_string, 'len: ', len(labels_string))
 
         for i in range(4, len(labels_string)):
             speed = float(labels_string[i])
             train_labels.append(speed)
+            num_train_labels += 1
 
             if type == TYPE_FLOW_PRECOMPUTED:
                 # Combine original and pre computed optical flow
@@ -56,7 +58,7 @@ def prepareData(labels_path, images_path, flow_images_path, type=TYPE_FLOW_PRECO
                 train_images_pair_paths.append((os.getcwd() + images_path[1:] + str(i - 1) + '.png',
                                                 os.getcwd() + images_path[1:] + str(i) + '.png'))
 
-    return train_images_pair_paths, train_labels
+    return train_images_pair_paths, train_labels, num_train_labels
 
 
 def generatorData(samples, batch_size=32, type=TYPE_FLOW_PRECOMPUTED):
@@ -80,6 +82,7 @@ def generatorData(samples, batch_size=32, type=TYPE_FLOW_PRECOMPUTED):
                     path2 = cv2.imread(flow_image_path2)
                     path3 = cv2.imread(flow_image_path3)
                     path4 = cv2.imread(flow_image_path4)
+
                     a = (path1 + path2 + path3 + path4)
                     flow_image_bgr = a / 4
 
@@ -119,8 +122,8 @@ if __name__ == '__main__':
     type_ = TYPE_FLOW_PRECOMPUTED  # optical flow pre computed
     # type_ = TYPE_ORIGINAL
 
-    train_images_pair_paths, train_labels = prepareData(PATH_TRAIN_LABEL, PATH_TRAIN_IMAGES_FOLDER,
-                                                        PATH_TRAIN_IMAGES_FLOW_FOLDER, type=type_)
+    train_images_pair_paths, train_labels, labels_count = prepareData(PATH_TRAIN_LABEL, PATH_TRAIN_IMAGES_FOLDER,
+                                                                      PATH_TRAIN_IMAGES_FLOW_FOLDER, type=type_)
 
     samples = list(zip(train_images_pair_paths, train_labels))
     train_samples, validation_samples = train_test_split(samples, test_size=0.2)
@@ -128,6 +131,7 @@ if __name__ == '__main__':
     print('Total Images: {}'.format(len(train_images_pair_paths)))
     print('Train samples: {}'.format(len(train_samples)))
     print('Validation samples: {}'.format(len(validation_samples)))
+    print('Number of labels: {}'.format(labels_count))
 
     training_generator = generatorData(train_samples, batch_size=BATCH_SIZE, type=type_)
     validation_generator = generatorData(validation_samples, batch_size=BATCH_SIZE, type=type_)
@@ -146,12 +150,7 @@ if __name__ == '__main__':
         verbose=1,
         callbacks=callbacks,
         validation_data=validation_generator,
-        validation_steps=len(validation_samples) // BATCH_SIZE,
-        class_weight=None,
-        workers=1,
-        initial_epoch=0,
-        use_multiprocessing=False,
-        max_queue_size=10)
+        validation_steps=len(validation_samples) // BATCH_SIZE)
 
     print('Training model complete...')
 
@@ -172,8 +171,9 @@ if __name__ == '__main__':
     plt.savefig('graph.png')
 
     # Plot training & validation accuracy values
-    plt.plot(history_object.history['acc'])
-    plt.plot(history_object.history['val_acc'])
+    plt.plot(np.arange(1, len(history_object.history['acc']) + 1), history_object.history['acc'], 'r', linewidth=3.0)
+    plt.plot(np.arange(1, len(history_object.history['val_acc']) + 1), history_object.history['val_acc'], 'b',
+             linewidth=3.0)
     plt.title('Model accuracy')
     plt.ylabel('Accuracy')
     plt.xlabel('Epoch')
