@@ -139,7 +139,7 @@ if __name__ == '__main__':
 
     model = CNNModel()
 
-    callbacks = [EarlyStopping(monitor='val_loss', patience=3),
+    callbacks = [EarlyStopping(monitor='loss', patience=3),
                  ModelCheckpoint(filepath='best' + MODEL_NAME + '.h5', monitor='val_loss', save_best_only=True)]
 
     history_object = model.fit_generator(
@@ -149,7 +149,12 @@ if __name__ == '__main__':
         verbose=1,
         callbacks=callbacks,
         validation_data=validation_generator,
-        validation_steps=len(validation_samples) // BATCH_SIZE)
+        validation_steps=len(validation_samples) // BATCH_SIZE,
+        class_weight=None,
+        workers=1,
+        initial_epoch=0,
+        use_multiprocessing=False,
+        max_queue_size=10)
 
     print('Training model complete...')
 
@@ -170,7 +175,7 @@ if __name__ == '__main__':
     plt.savefig('graph.png')
 
     # Plot training & validation accuracy values
-    plt.plot(np.arange(1, len(history_object.history['acc']) + 1), history_object.history['acc'], 'r', linewidth=3.0)
+    plt.plot(np.arange(1, len(history_object.history['accuracy']) + 1), history_object.history['accuracy'], 'r', linewidth=3.0)
     plt.plot(np.arange(1, len(history_object.history['val_acc']) + 1), history_object.history['val_acc'], 'b',
              linewidth=3.0)
     plt.title('Model accuracy')
