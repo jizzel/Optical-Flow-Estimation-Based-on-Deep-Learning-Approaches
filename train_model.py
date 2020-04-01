@@ -150,8 +150,7 @@ if __name__ == '__main__':
         class_weight=None,
         workers=1,
         initial_epoch=0,
-        use_multiprocessing=False,
-        max_queue_size=10)
+        use_multiprocessing=False)
 
     print('Training model complete...')
 
@@ -172,8 +171,8 @@ if __name__ == '__main__':
     plt.savefig('graph.png')
 
     # Plot training & validation accuracy values
-    plt.plot(history_object.history['acc'])
-    plt.plot(history_object.history['val_acc'])
+    plt.plot(np.arange(1, len(history_object.history['acc']) + 1), history_object.history['acc'], 'r', linewidth=3.0)
+    plt.plot(np.arange(1, len(history_object.history['val_acc']) + 1), history_object.history['val_acc'], 'b', linewidth=3.0)
     plt.title('Model accuracy')
     plt.ylabel('Accuracy')
     plt.xlabel('Epoch')
