@@ -139,8 +139,8 @@ if __name__ == '__main__':
 
     model = CNNModel()
 
-    callbacks = [EarlyStopping(monitor='val_accuracy', patience=3),
-                 ModelCheckpoint(filepath='best' + MODEL_NAME + '.h5', monitor='val_loss', save_best_only=True, mode='max')]
+    callbacks = [EarlyStopping(monitor='val_accuracy', patience=3, mode='auto'),
+                 ModelCheckpoint(filepath='best' + MODEL_NAME + '.h5', monitor='val_accuracy', save_best_only=True, mode='auto')]
 
     history_object = model.fit_generator(
         training_generator,
@@ -163,6 +163,11 @@ if __name__ == '__main__':
     print('Validation Loss: ')
     print(history_object.history['val_loss'])
 
+    print('Accuracy: ')
+    print(history_object.history['accuracy'])
+    print('Validation Loss: ')
+    print(history_object.history['val_accuracy'])
+
     plt.figure(figsize=[10, 8])
     plt.plot(np.arange(1, len(history_object.history['loss']) + 1), history_object.history['loss'], 'r', linewidth=3.0)
     plt.plot(np.arange(1, len(history_object.history['val_loss']) + 1), history_object.history['val_loss'], 'b',
@@ -184,13 +189,3 @@ if __name__ == '__main__':
     plt.legend(['Train', 'Test'], loc='upper left')
     plt.show()
     plt.savefig('ModelAcc.png')
-
-    # Plot training & validation loss values
-    plt.plot(history_object.history['loss'])
-    plt.plot(history_object.history['val_loss'])
-    plt.title('Model loss')
-    plt.ylabel('Loss')
-    plt.xlabel('Epoch')
-    plt.legend(['Train', 'Test'], loc='upper left')
-    plt.show()
-    plt.savefig('ModelLoss.png')
