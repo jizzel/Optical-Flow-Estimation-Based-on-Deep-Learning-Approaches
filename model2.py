@@ -5,11 +5,11 @@ from keras.layers import Flatten, Dense, Lambda, Convolution2D, Cropping2D, Drop
 
 def CNNModel():
     model = Sequential()
-    # model.add(Cropping2D(cropping=((70, 25), (0, 0)), input_shape = (160, 320, 3)))
-    # model.add(Cropping2D(cropping=((20, 20), (0, 0)), input_shape = (240, 320, 3)))
+    model.add(Cropping2D(cropping=((70, 25), (0, 0)), input_shape = (160, 320, 3)))
+    model.add(Cropping2D(cropping=((20, 20), (0, 0)), input_shape = (240, 320, 3)))
     # normalize data
-    # model.add(Lambda(lambda x: (x / 255) - 0.5, input_shape = (240, 320, 3)))
-    # model.add(BatchNormalization(input_shape = (240, 320, 3)))
+    model.add(Lambda(lambda x: (x / 255) - 0.5, input_shape = (240, 320, 3)))
+    model.add(BatchNormalization(input_shape = (240, 320, 3)))
     model.add(Convolution2D(24,5,5, subsample=(2,2), init = 'he_normal' , input_shape = (240, 320, 3)))
     # model.add(Convolution2D(24,5,5, subsample=(2,2), init = 'he_normal' ))
     model.add(BatchNormalization())
