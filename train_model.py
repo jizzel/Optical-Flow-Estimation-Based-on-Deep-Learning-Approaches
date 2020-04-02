@@ -154,7 +154,7 @@ if __name__ == '__main__':
         workers=1,
         initial_epoch=0,
         use_multiprocessing=False,
-        max_queue_size=6)
+        max_queue_size=10)
 
     print('Training model complete...')
 
