@@ -139,7 +139,7 @@ if __name__ == '__main__':
 
     model = CNNModel()
 
-    callbacks = [EarlyStopping(monitor='val_accuracy', patience=3, mode='auto'),
+    callbacks = [EarlyStopping(monitor='val_accuracy', patience=5, mode='auto'),
                  ModelCheckpoint(filepath='best' + MODEL_NAME + '.h5', monitor='val_accuracy', save_best_only=True, mode='auto')]
 
     history_object = model.fit_generator(
@@ -165,7 +165,7 @@ if __name__ == '__main__':
 
     print('Accuracy: ')
     print(history_object.history['accuracy'])
-    print('Validation Loss: ')
+    print('Validation Accuracy: ')
     print(history_object.history['val_accuracy'])
 
     plt.figure(figsize=[10, 8])
