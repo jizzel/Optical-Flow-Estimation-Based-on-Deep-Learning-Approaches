@@ -1,6 +1,6 @@
-from model2 import CNNModel
+# from model2 import CNNModel
 # from model3 import CNNModel
-# from model4 import CNNModel
+from model import CNNModel
 
 import cv2
 import numpy as np
