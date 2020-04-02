@@ -139,8 +139,8 @@ if __name__ == '__main__':
 
     model = CNNModel()
 
-    callbacks = [EarlyStopping(monitor='loss', patience=3),
-                 ModelCheckpoint(filepath='best' + MODEL_NAME + '.h5', monitor='val_loss', save_best_only=True)]
+    callbacks = [EarlyStopping(monitor='val_accuracy', patience=3),
+                 ModelCheckpoint(filepath='best' + MODEL_NAME + '.h5', monitor='val_loss', save_best_only=True, mode='max')]
 
     history_object = model.fit_generator(
         training_generator,
