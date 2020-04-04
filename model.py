@@ -34,7 +34,8 @@ def CNNModel():
     model.add(MaxPooling2D(2, 2))
 
     # (64 - 60)
-    model.add(Conv2D(60, (3, 3), strides=(1, 1), padding='valid', activation='elu'))
+    model.add(Conv2D(60, (3, 3), activation='elu'))
+    model.add(MaxPooling2D(2, 2))
 
     model.add(Flatten())
     # Dense layer 1
@@ -42,7 +43,7 @@ def CNNModel():
 
     model.add(Dense(100, activation='elu'))
     model.add(Dense(50, activation='elu'))
-    # model.add(Dropout(0.5))
+    model.add(Dropout(0.25))
     model.add(Dense(10, activation='elu'))
     model.add(Dense(1, activation='elu'))
 
