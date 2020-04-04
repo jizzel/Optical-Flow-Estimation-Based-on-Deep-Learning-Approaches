@@ -5,15 +5,11 @@ from keras.optimizers import Adam
 
 def CNNModel():
     model = Sequential()
-    # model.add(Conv2D(24, (5, 5), input_shape=(240, 320, 3), strides=(2, 2), kernel_initializer='he_normal'))
-    # model.add(ELU())
     # Convolution Layer 1
     model.add(Conv2D(12, (3, 3), activation='elu', input_shape=(240, 320, 3)))
     # Pooling Layer 1
     model.add(MaxPooling2D(2, 2))
 
-    # model.add(Conv2D(36, (5, 5), strides=(2, 2), kernel_initializer='he_normal'))
-    # model.add(ELU())
     # Convolution Layer 2
     model.add(Conv2D(24, (3, 3), activation='elu'))
     # Pooling Layer 2
@@ -105,7 +101,7 @@ def nvidia_model():
     # do not put activation at the end because we want to exact output, not a class identifier
     model.add(Dense(1, name='output', kernel_initializer='he_normal'))
 
-    adam = Adam(lr=1e-4)
+    adam = Adam(lr=1e-3)
     model.compile(optimizer=adam, loss='mse', metrics=['accuracy'])
 
     return model
