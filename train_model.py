@@ -23,7 +23,7 @@ PATH_TRAIN_IMAGES_FLOW_FOLDER = PATH_DATA_FOLDER + 'train_images_flow/'
 TYPE_FLOW_PRECOMPUTED = 0
 TYPE_ORIGINAL = 1
 
-BATCH_SIZE = 128
+BATCH_SIZE = 64
 EPOCH = 50
 
 MODEL_NAME = 'CNNModel_flow'
@@ -63,7 +63,7 @@ def prepareData(labels_path, images_path, flow_images_path, type=TYPE_FLOW_PRECO
 def generatorData(samples, batch_size=32, type=TYPE_FLOW_PRECOMPUTED):
     num_samples = len(samples)
     while 1:  # Loop forever so the generator never terminates
-        samples = sklearn.utils.shuffle(samples)
+        # samples = sklearn.utils.shuffle(samples)
         for offset in range(0, num_samples, batch_size):
             batch_samples = samples[offset:offset + batch_size]
 
