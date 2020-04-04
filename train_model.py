@@ -1,6 +1,7 @@
 # from model2 import CNNModel
 # from model3 import CNNModel
-from model import CNNModel
+# from model import CNNModel
+from model import nvidia_model as CNNModel
 
 import cv2
 import numpy as np
@@ -63,7 +64,7 @@ def prepareData(labels_path, images_path, flow_images_path, type=TYPE_FLOW_PRECO
 def generatorData(samples, batch_size=32, type=TYPE_FLOW_PRECOMPUTED):
     num_samples = len(samples)
     while 1:  # Loop forever so the generator never terminates
-        # samples = sklearn.utils.shuffle(samples)
+        samples = sklearn.utils.shuffle(samples)
         for offset in range(0, num_samples, batch_size):
             batch_samples = samples[offset:offset + batch_size]
 
