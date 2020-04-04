@@ -101,7 +101,7 @@ def nvidia_model():
     # do not put activation at the end because we want to exact output, not a class identifier
     model.add(Dense(1, name='output', kernel_initializer='he_normal'))
 
-    adam = Adam(lr=1e-3)
+    adam = Adam(lr=1e-4)
     model.compile(optimizer=adam, loss='mse', metrics=['accuracy'])
 
     return model
