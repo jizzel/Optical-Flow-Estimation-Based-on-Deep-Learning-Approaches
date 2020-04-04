@@ -1,7 +1,7 @@
 # from model2 import CNNModel
 # from model3 import CNNModel
-# from model import CNNModel
-from model import nvidia_model as CNNModel
+from model import CNNModel
+# from model import nvidia_model as CNNModel
 
 import cv2
 import numpy as np
