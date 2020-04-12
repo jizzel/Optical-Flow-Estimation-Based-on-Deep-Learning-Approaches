@@ -112,7 +112,7 @@ from tensorflow.keras.layers import MaxPooling2D
 #     return model
 
 def CNNModel():
-    inputs = Input(shape=240, 320, 3)
+    inputs = Input(shape=(240, 320, 3))
     inputs1 = Lambda(lambda x: x / 127.5 - 1, input_shape=IMG_SHAPE)(inputs)
 
     conv1 = Conv2D(24, (5, 5), padding="valid")(inputs1)
