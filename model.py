@@ -7,7 +7,6 @@ from tensorflow.keras.layers import Input, Dense, Activation, Conv2D, ELU, TimeD
 from tensorflow.keras.optimizers import Nadam
 from tensorflow.keras.layers import MaxPooling2D
 
-
 # def CNNModel():
 #     model = Sequential()
 #     # Convolution Layer 1
@@ -110,9 +109,11 @@ from tensorflow.keras.layers import MaxPooling2D
 #     model.compile(optimizer=adam, loss='mse', metrics=['accuracy'])
 #
 #     return model
+IMG_SHAPE = (240, 320, 3)
+
 
 def CNNModel():
-    inputs = Input(shape=(240, 320, 3))
+    inputs = Input(shape=IMG_SHAPE)
     inputs1 = Lambda(lambda x: x / 127.5 - 1, input_shape=IMG_SHAPE)(inputs)
 
     conv1 = Conv2D(24, (5, 5), padding="valid")(inputs1)
