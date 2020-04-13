@@ -98,7 +98,7 @@ def generatorData(samples, batch_size=32, type=TYPE_FLOW_PRECOMPUTED):
 
                 combined_image = 0.1 * curr_image + flow_image_bgr
                 # CHOOSE IF WE WANT TO TEST WITH ONLY OPTICAL FLOW OR A COMBINATION OF VIDEO AND OPTICAL FLOW
-                combined_image = flow_image_bgr
+                # combined_image = flow_image_bgr
 
                 combined_image = cv2.normalize(combined_image, None, alpha=-1, beta=1, norm_type=cv2.NORM_MINMAX,
                                                dtype=cv2.CV_32F)
@@ -119,8 +119,8 @@ def generatorData(samples, batch_size=32, type=TYPE_FLOW_PRECOMPUTED):
 
 
 if __name__ == '__main__':
-    # type_ = TYPE_FLOW_PRECOMPUTED  # optical flow pre computed
-    type_ = TYPE_ORIGINAL
+    type_ = TYPE_FLOW_PRECOMPUTED  # optical flow pre computed
+    # type_ = TYPE_ORIGINAL
 
     train_images_pair_paths, train_labels, labels_count = prepareData(PATH_TRAIN_LABEL, PATH_TRAIN_IMAGES_FOLDER,
                                                                       PATH_TRAIN_IMAGES_FLOW_FOLDER, type=type_)
@@ -140,7 +140,7 @@ if __name__ == '__main__':
 
     model = CNNModel()
 
-    callbacks = [EarlyStopping(monitor='val_loss', patience=3, mode='auto'),
+    callbacks = [EarlyStopping(monitor='val_loss', patience=6, mode='auto'),
                  ModelCheckpoint(filepath='best' + MODEL_NAME + '.h5', monitor='val_loss', save_best_only=True, mode='auto')]
 
     history_object = model.fit_generator(
