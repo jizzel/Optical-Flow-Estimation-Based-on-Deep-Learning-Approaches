@@ -2,42 +2,22 @@ from keras.models import Sequential
 from keras.layers import Flatten, Dense, Lambda, Conv2D, Cropping2D, Dropout, Reshape, ELU, MaxPooling2D
 from keras.optimizers import Adam
 
-# from tensorflow.keras.models import Model, Sequential
-# from tensorflow.keras.layers import Input, Dense, Activation, Conv2D, ELU, TimeDistributed, Flatten, Dropout, Lambda
-# from tensorflow.keras.optimizers import Nadam
-# from tensorflow.keras.layers import MaxPooling2D
-
-IMG_SHAPE = (240, 320, 3)
 
 def CNNModel():
     model = Sequential()
-    # Convolution Layer 1
     # model.add(Conv2D(12, (3, 3), activation='elu', input_shape=(240, 320, 3)))
-    # # Pooling Layer 1
     # model.add(MaxPooling2D(2, 2))
 
     # Convolution Layer 2
     model.add(Conv2D(24, (3, 3), activation='elu', input_shape=(240, 320, 3), kernel_initializer='he_normal'))
-    # Pooling Layer 2
     model.add(MaxPooling2D(2, 2))
-
-    # model.add(Conv2D(48, (5, 5), strides=(2, 2), kernel_initializer='he_normal'))
-    # model.add(ELU())
-    # Convolution Layer 3
     model.add(Conv2D(36, (3, 3), activation='elu', kernel_initializer='he_normal'))
-    # Pooling Layer 3
     model.add(MaxPooling2D(2, 2))
-
-    # model.add(Dropout(0.5))
-    # model.add(Conv2D(64, (3, 3), strides=(1, 1), kernel_initializer='he_normal'))
-    # Convolution Layer 4
     model.add(Conv2D(48, (3, 3), activation='elu', kernel_initializer='he_normal'))
-    # Pooling Layer 4
     model.add(MaxPooling2D(2, 2))
-
-    # (64 - 60)
     model.add(Conv2D(64, (3, 3), padding='valid', activation='elu', kernel_initializer='he_normal'))
     model.add(MaxPooling2D(2, 2))
+    model.add(Dropout(0.5))
 
     model.add(Conv2D(64, (3, 3), padding='valid', activation='elu', kernel_initializer='he_normal'))
     model.add(MaxPooling2D(2, 2))
@@ -45,6 +25,7 @@ def CNNModel():
     model.add(Flatten())
     # Dense layer 1
     model.add(Dense(1164, activation='elu', kernel_initializer='he_normal'))
+    model.add(Dropout(0.5))
 
     model.add(Dense(100, activation='elu', kernel_initializer='he_normal'))
     model.add(Dense(50, activation='elu', kernel_initializer='he_normal'))
