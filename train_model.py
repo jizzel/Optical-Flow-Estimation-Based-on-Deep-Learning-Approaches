@@ -119,14 +119,14 @@ def generatorData(samples, batch_size=32, type=TYPE_FLOW_PRECOMPUTED):
 
 
 if __name__ == '__main__':
-    type_ = TYPE_FLOW_PRECOMPUTED  # optical flow pre computed
-    # type_ = TYPE_ORIGINAL
+    # type_ = TYPE_FLOW_PRECOMPUTED  # optical flow pre computed
+    type_ = TYPE_ORIGINAL
 
     train_images_pair_paths, train_labels, labels_count = prepareData(PATH_TRAIN_LABEL, PATH_TRAIN_IMAGES_FOLDER,
                                                                       PATH_TRAIN_IMAGES_FLOW_FOLDER, type=type_)
 
     samples = list(zip(train_images_pair_paths, train_labels))
-    train_samples, validation_samples = train_test_split(samples, test_size=0.2)
+    train_samples, validation_samples = train_test_split(samples, test_size=0.15)
 
     print('Total Images: {}'.format(len(train_images_pair_paths)))
     print('Train samples: {}'.format(len(train_samples)))
@@ -140,7 +140,7 @@ if __name__ == '__main__':
 
     model = CNNModel()
 
-    callbacks = [EarlyStopping(monitor='val_loss', patience=5, mode='auto'),
+    callbacks = [EarlyStopping(monitor='val_loss', patience=3, mode='auto'),
                  ModelCheckpoint(filepath='best' + MODEL_NAME + '.h5', monitor='val_loss', save_best_only=True, mode='auto')]
 
     history_object = model.fit_generator(
