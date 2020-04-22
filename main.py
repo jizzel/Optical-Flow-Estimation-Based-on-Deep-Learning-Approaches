@@ -34,16 +34,12 @@ def preprocess_data(video_input_path, flow_video_output_path, image_folder_path,
     print("Converting video to optical flow for: ", video_input_path)
 
     video_reader = cv2.VideoCapture(video_input_path)
-    # print('video path: ', video_input_path)
-    # print('video reader: ', video_reader)
 
     num_frames = video_reader.get(cv2.CAP_PROP_FRAME_COUNT)
     frame_size = (int(video_reader.get(cv2.CAP_PROP_FRAME_WIDTH)), int(video_reader.get(cv2.CAP_PROP_FRAME_HEIGHT)))
     fps = int(video_reader.get(cv2.CAP_PROP_FPS))
 
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-    # fourcc = cv2.VideoWriter_fourcc(*'XVID')
-    # fourcc = cv2.VideoWriter_fourcc('M', 'J', 'P', 'G')
     # fourcc = 0x763470d
     video_writer = cv2.VideoWriter(flow_video_output_path, fourcc, fps, frame_size)
 
@@ -62,14 +58,8 @@ def preprocess_data(video_input_path, flow_video_output_path, image_folder_path,
         ret, next_frame = video_reader.read()
         if next_frame is None:
             break
-        # print('before dimension: ', prev_frame.shape)
-        # print('before frame: ', prev_frame)
 
-        # prev_frame = elaborateImage(prev_frame)
         next_frame = elaborateImage(next_frame)
-
-        # print('after frame: ', prev_frame)
-        # print('after dimension: ', prev_frame.shape)
 
         bgr_flow = convertToOpticalFlow(prev_frame, next_frame)
 

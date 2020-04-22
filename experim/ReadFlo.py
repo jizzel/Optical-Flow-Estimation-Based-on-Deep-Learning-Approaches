@@ -8,6 +8,7 @@ import glob
 from enhance_image import elaborateImage
 
 img = cv2.imread('0.png', cv2.IMREAD_UNCHANGED)
+print(img.shape)
 img = elaborateImage(img)
 
 # get dimensions of image
@@ -15,22 +16,23 @@ img = elaborateImage(img)
 # 2.png 125, 640, 3
 # 1.png 480, 640, 3
 # height, width, number of channels in image
-new_size = (480, 640)
+# new_size = (480, 640)
 # new_size = (512, 1025)
 # print(new_size[1], new_size[0], img.shape[0])
-im = cv2.resize(img, (640, img.shape[0]))
-
-color = [0, 0, 0]
-new_im = cv2.copyMakeBorder(im, 178, 177, 0, 0, cv2.BORDER_CONSTANT,
-    value=color)
-cv2.imwrite('new2.png', new_im)
+# print(img.shape)
+im = cv2.resize(img, (0, 0), fx=0.5, fy=0.5)
+print(im.shape)
+# color = [0, 0, 0]
+# new_im = cv2.copyMakeBorder(im, 178, 177, 0, 0, cv2.BORDER_CONSTANT,
+#     value=color)
+cv2.imwrite('new2.png', im)
 
 
 # BLUE = [255, 0, 0]
 # img1 = cv.imread('first.png')
 # img = elaborateImage(img1)
-# cv.imshow('Image', img)
-# cv.waitKey(10000)
+cv2.imshow('Image', im)
+cv2.waitKey(5000)
 
 
 

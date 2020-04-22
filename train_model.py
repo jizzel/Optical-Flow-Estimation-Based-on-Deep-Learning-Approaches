@@ -1,5 +1,7 @@
 # from model2 import CNNModel
 # from model3 import CNNModel
+import sys
+
 from model import CNNModel
 # from model import nvidia_model as CNNModel
 
@@ -103,6 +105,8 @@ def generatorData(samples, batch_size=32, type=TYPE_FLOW_PRECOMPUTED):
                 combined_image = cv2.normalize(combined_image, None, alpha=-1, beta=1, norm_type=cv2.NORM_MINMAX,
                                                dtype=cv2.CV_32F)
                 combined_image = cv2.resize(combined_image, (0, 0), fx=0.5, fy=0.5)
+                cv2.imwrite('example.png', combined_image)
+                sys.stdout.write('\rprocessed frames: %s of %s' % ('shape', combined_image.shape))
 
                 images.append(combined_image)
                 angles.append(measurement)

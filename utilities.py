@@ -55,6 +55,7 @@ def opticalFlowDense(image_current, image_next):
 
     return rgb_flow
 
+
 # Given the lines coming from the Hough transform result, this function draws them over a given image
 def drawHoughTransformLines(img, lines):
     if lines is None:
@@ -68,8 +69,7 @@ def drawHoughTransformLines(img, lines):
 
 
 # This function applies a given brightness and contrast to an input image
-def apply_brightness_contrast(input_img, brightness = 0, contrast = 0):
-
+def apply_brightness_contrast(input_img, brightness=0, contrast=0):
     if brightness != 0:
         if brightness > 0:
             shadow = brightness
@@ -77,7 +77,7 @@ def apply_brightness_contrast(input_img, brightness = 0, contrast = 0):
         else:
             shadow = 0
             highlight = 255 + brightness
-        alpha_b = (highlight - shadow)/255
+        alpha_b = (highlight - shadow) / 255
         gamma_b = shadow
 
         buf = cv2.addWeighted(input_img, alpha_b, input_img, 0, gamma_b)
@@ -85,9 +85,9 @@ def apply_brightness_contrast(input_img, brightness = 0, contrast = 0):
         buf = input_img.copy()
 
     if contrast != 0:
-        f = 131*(contrast + 127)/(127*(131-contrast))
+        f = 131 * (contrast + 127) / (127 * (131 - contrast))
         alpha_c = f
-        gamma_c = 127*(1-f)
+        gamma_c = 127 * (1 - f)
 
         buf = cv2.addWeighted(buf, alpha_c, buf, 0, gamma_c)
 
@@ -114,9 +114,9 @@ def thresholdWhiteAndYellow(image):
 # This method draws the optical flow onto img with a given step (distance between one arrow origin and the other)
 def draw_flow(img, flow, step=16):
     h, w = img.shape[:2]
-    y, x = np.mgrid[step/2:h:step, step/2:w:step].reshape(2,-1).astype(int)
-    fx, fy = flow[y,x].T
-    lines = np.vstack([x, y, x+fx, y+fy]).T.reshape(-1, 2, 2)
+    y, x = np.mgrid[step / 2:h:step, step / 2:w:step].reshape(2, -1).astype(int)
+    fx, fy = flow[y, x].T
+    lines = np.vstack([x, y, x + fx, y + fy]).T.reshape(-1, 2, 2)
     lines = np.int32(lines + 0.5)
     vis = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
     cv2.polylines(vis, lines, 0, (0, 255, 0))
@@ -128,7 +128,7 @@ def draw_flow(img, flow, step=16):
 # This method cuts top and bottom portions of the frame (which are only black areas of the car's dashboard or sky)
 def cutTopAndBottom(img, top, bottom):
     height, width = img.shape
-    heightBeginning = 20
-    heightEnd = height - 30
-    crop_img = img[top : bottom, 0 : width]
+    # heightBeginning = 20
+    # heightEnd = height - 30
+    crop_img = img[top: bottom, 0: width]
     return crop_img
