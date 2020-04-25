@@ -1,9 +1,6 @@
 # from model2 import CNNModel
 # from model3 import CNNModel
-import sys
-
 from model import CNNModel
-# from model import nvidia_model as CNNModel
 
 import cv2
 import numpy as np
@@ -100,13 +97,11 @@ def generatorData(samples, batch_size=32, type=TYPE_FLOW_PRECOMPUTED):
 
                 combined_image = 0.1 * curr_image + flow_image_bgr
                 # CHOOSE IF WE WANT TO TEST WITH ONLY OPTICAL FLOW OR A COMBINATION OF VIDEO AND OPTICAL FLOW
-                # combined_image = flow_image_bgr
+                combined_image = flow_image_bgr
 
                 combined_image = cv2.normalize(combined_image, None, alpha=-1, beta=1, norm_type=cv2.NORM_MINMAX,
                                                dtype=cv2.CV_32F)
                 combined_image = cv2.resize(combined_image, (0, 0), fx=0.5, fy=0.5)
-                # cv2.imwrite('example.png', combined_image)
-                # sys.stdout.write('\rprocessed frames: %s of %s' % ('shape', combined_image.shape))
 
                 images.append(combined_image)
                 angles.append(measurement)
@@ -130,7 +125,7 @@ if __name__ == '__main__':
                                                                       PATH_TRAIN_IMAGES_FLOW_FOLDER, type=type_)
 
     samples = list(zip(train_images_pair_paths, train_labels))
-    train_samples, validation_samples = train_test_split(samples, test_size=0.25)
+    train_samples, validation_samples = train_test_split(samples, test_size=0.2)
 
     print('Total Images: {}'.format(len(train_images_pair_paths)))
     print('Train samples: {}'.format(len(train_samples)))
@@ -144,8 +139,8 @@ if __name__ == '__main__':
 
     model = CNNModel()
 
-    callbacks = [EarlyStopping(monitor='val_loss', patience=3, mode='auto'),
-                 ModelCheckpoint(filepath='best' + MODEL_NAME + '.h5', monitor='val_loss', save_best_only=True, mode='auto')]
+    callbacks = [EarlyStopping(monitor='val_accuracy', patience=3, mode='auto'),
+                 ModelCheckpoint(filepath='best' + MODEL_NAME + '.h5', monitor='val_accuracy', save_best_only=True, mode='auto')]
 
     history_object = model.fit_generator(
         training_generator,
@@ -170,7 +165,7 @@ if __name__ == '__main__':
 
     print('Accuracy: ')
     print(history_object.history['accuracy'])
-    print('Validation Accuracy: ')
+    print('Validation Loss: ')
     print(history_object.history['val_accuracy'])
 
     plt.figure(figsize=[10, 8])
@@ -186,7 +181,7 @@ if __name__ == '__main__':
 
     # Plot training & validation accuracy values
     plt.plot(np.arange(1, len(history_object.history['accuracy']) + 1), history_object.history['accuracy'], 'r', linewidth=3.0)
-    plt.plot(np.arange(1, len(history_object.history['val_accuracy']) + 1), history_object.history['val_accuracy'], 'b',
+    plt.plot(np.arange(1, len(history_object.history['val_acc']) + 1), history_object.history['val_acc'], 'b',
              linewidth=3.0)
     plt.title('Model accuracy')
     plt.ylabel('Accuracy')

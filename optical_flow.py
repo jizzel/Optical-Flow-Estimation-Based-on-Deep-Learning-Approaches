@@ -23,7 +23,7 @@ torch.backends.cudnn.enabled = True  # make sure to use cudnn for computational 
 
 ##########################################################
 
-arguments_strModel = 'kitti-final'
+arguments_strModel = 'sintel-final'
 # arguments_strFirst = './images/first.png'
 # arguments_strSecond = './images/second.png'
 arguments_strOut = './out.flo'
