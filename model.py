@@ -9,12 +9,13 @@ def CNNModel():
     # model.add(MaxPooling2D(2, 2))
 
     # Convolution Layer 2
-    model.add(Conv2D(24, (3, 3), activation='elu', input_shape=(240, 320, 3), kernel_initializer='he_normal'))
+    model.add(Conv2D(24, (5, 5), activation='elu', input_shape=(240, 320, 3), kernel_initializer='he_normal'))
     model.add(MaxPooling2D(2, 2))
-    model.add(Conv2D(36, (3, 3), activation='elu', kernel_initializer='he_normal'))
+    model.add(Conv2D(36, (5, 5), activation='elu', kernel_initializer='he_normal'))
     model.add(MaxPooling2D(2, 2))
-    model.add(Conv2D(48, (3, 3), activation='elu', kernel_initializer='he_normal'))
+    model.add(Conv2D(48, (5, 5), activation='elu', kernel_initializer='he_normal'))
     model.add(MaxPooling2D(2, 2))
+    model.add(Dropout(0.5))
     model.add(Conv2D(64, (3, 3), padding='valid', activation='elu', kernel_initializer='he_normal'))
     model.add(MaxPooling2D(2, 2))
     model.add(Dropout(0.5))
@@ -29,7 +30,6 @@ def CNNModel():
 
     model.add(Dense(100, activation='elu', kernel_initializer='he_normal'))
     model.add(Dense(50, activation='elu', kernel_initializer='he_normal'))
-    model.add(Dropout(0.25))
     model.add(Dense(10, activation='elu', kernel_initializer='he_normal'))
     model.add(Dense(1, activation='elu', kernel_initializer='he_normal'))
 
@@ -95,3 +95,40 @@ def NVIDIA_Model():
     model.compile(optimizer=adam, loss='mse', metrics=['accuracy'])
 
     return model
+
+
+
+# def CNNModel():
+#     model = Sequential()
+#     # model.add(Conv2D(12, (3, 3), activation='elu', input_shape=(240, 320, 3)))
+#     # model.add(MaxPooling2D(2, 2))
+#
+#     # Convolution Layer 2
+#     model.add(Conv2D(24, (3, 3), activation='elu', input_shape=(240, 320, 3), kernel_initializer='he_normal'))
+#     model.add(MaxPooling2D(2, 2))
+#     model.add(Conv2D(36, (3, 3), activation='elu', kernel_initializer='he_normal'))
+#     model.add(MaxPooling2D(2, 2))
+#     model.add(Conv2D(48, (3, 3), activation='elu', kernel_initializer='he_normal'))
+#     model.add(MaxPooling2D(2, 2))
+#     model.add(Conv2D(64, (3, 3), padding='valid', activation='elu', kernel_initializer='he_normal'))
+#     model.add(MaxPooling2D(2, 2))
+#     model.add(Dropout(0.5))
+#
+#     model.add(Conv2D(64, (3, 3), padding='valid', activation='elu', kernel_initializer='he_normal'))
+#     model.add(MaxPooling2D(2, 2))
+#
+#     model.add(Flatten())
+#     # Dense layer 1
+#     model.add(Dense(1164, activation='elu', kernel_initializer='he_normal'))
+#     model.add(Dropout(0.5))
+#
+#     model.add(Dense(100, activation='elu', kernel_initializer='he_normal'))
+#     model.add(Dense(50, activation='elu', kernel_initializer='he_normal'))
+#     model.add(Dropout(0.25))
+#     model.add(Dense(10, activation='elu', kernel_initializer='he_normal'))
+#     model.add(Dense(1, activation='elu', kernel_initializer='he_normal'))
+#
+#     adam = Adam(lr=1e-4)
+#     model.compile(optimizer=adam, loss='mse', metrics=['accuracy'])
+#
+#     return model

@@ -39,15 +39,15 @@ def highlightRoadLaneMarkings(newFrame):
 # This function applies all elaboration steps to the image
 def elaborateImage(newFrame):
     # Drawing road from original frame
-    cv2.imshow('newFrame', newFrame)
-    cv2.waitKey(5000)
+    # cv2.imshow('newFrame', newFrame)
+    # cv2.waitKey(5000)
     new_frame_adjusted = apply_brightness_contrast(newFrame, 30, 15)
-    cv2.imwrite('brightness_contrast.png', new_frame_adjusted)
-    cv2.imshow('new_frame_adjusted', new_frame_adjusted)
-    cv2.waitKey(5000)
+    # cv2.imwrite('brightness_contrast.png', new_frame_adjusted)
+    # cv2.imshow('new_frame_adjusted', new_frame_adjusted)
+    # cv2.waitKey(5000)
     new_frame_grey = cv2.cvtColor(new_frame_adjusted, cv2.COLOR_BGR2GRAY)
-    cv2.imshow('new_frame_grey', new_frame_grey)
-    cv2.waitKey(5000)
+    # cv2.imshow('new_frame_grey', new_frame_grey)
+    # cv2.waitKey(5000)
     height, width = new_frame_grey.shape
     bottom_left = [0, height - 130]
     top_left = [0, height / 2 + 10]
@@ -59,31 +59,31 @@ def elaborateImage(newFrame):
     black_image = np.zeros((height, width, 1), np.uint8)
 
     polygonal_shape = cv2.fillPoly(black_image, [pts], (255, 255, 255))
-    cv2.imwrite('polygonal_shape.png', polygonal_shape)
-    cv2.imshow('polygonal_shape', polygonal_shape)
-    cv2.waitKey(5000)
+    # cv2.imwrite('polygonal_shape.png', polygonal_shape)
+    # cv2.imshow('polygonal_shape', polygonal_shape)
+    # cv2.waitKey(5000)
     colored_masked_road = cv2.bitwise_and(new_frame_grey, new_frame_grey, mask=polygonal_shape)
-    cv2.imwrite('colored_masked_road.png', colored_masked_road)
-    print('mask: ', colored_masked_road.shape)
-    cv2.imshow('colored_masked_road', colored_masked_road)
-    cv2.waitKey(5000)
-    # new_frame_roi = highlightRoadLaneMarkings(newFrame)
+    # cv2.imwrite('colored_masked_road.png', colored_masked_road)
+    # print('mask: ', colored_masked_road.shape)
+    # cv2.imshow('colored_masked_road', colored_masked_road)
+    # cv2.waitKey(5000)
+    new_frame_roi = highlightRoadLaneMarkings(newFrame)
     # cv2.imshow('new_frame_roi', new_frame_roi)
     # cv2.waitKey(5000)
-    # new_frame_mask_and_road = cv2.add(colored_masked_road, new_frame_roi)  # Adding canny edge overlay to highlight the lane markers
+    new_frame_mask_and_road = cv2.add(colored_masked_road, new_frame_roi)  # Adding canny edge overlay to highlight the lane markers
 
     # Cutting image basing on mask size
-    # result = cutTopAndBottom(coloredMaskedRoad, int(height / 2 - 15), int(height - 130))
-    # result = cutTopAndBottom(new_frame_mask_and_road, int(height / 2 - 15), int(height - 130))
-    # cv2.imshow('result', result)
-    # cv2.waitKey(5000)
+    # result = cutTopAndBottom(colored_masked_road, int(height / 2 - 15), int(height - 130))
+    result = cutTopAndBottom(new_frame_mask_and_road, int(height / 2 - 15), int(height - 130))
+    cv2.imshow('result', result)
+    cv2.waitKey(5000)
 
     # convert back to BRG/jaa
     result = cv2.cvtColor(colored_masked_road, cv2.COLOR_GRAY2BGR)
     # result = cv2.cvtColor(result, cv2.COLOR_GRAY2BGR)
     # result = reshape(result)
-    cv2.imshow('result2', result)
-    cv2.waitKey(5000)
+    # cv2.imshow('result2', result)
+    # cv2.waitKey(5000)
 
     return result
 
