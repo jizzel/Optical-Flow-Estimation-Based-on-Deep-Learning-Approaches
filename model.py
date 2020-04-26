@@ -13,6 +13,9 @@ def CNNModel():
     model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
     model.add(Conv2D(48, (3, 3), activation='elu', kernel_initializer='he_normal'))
     model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
+    model.add(Conv2D(64, (3, 3), strides=(1, 1), kernel_initializer='he_normal'))
+    model.add(ELU())
+    model.add(Dropout(0.5))
     model.add(Conv2D(60, (3, 3), strides=(1, 1), padding='valid', activation='elu', kernel_initializer='he_normal'))
     model.add(Flatten())
     model.add(Dense(1164, activation='elu'))
@@ -20,7 +23,7 @@ def CNNModel():
     model.add(Dense(50, kernel_initializer='he_normal', activation='elu'))
     model.add(Dense(10, kernel_initializer='he_normal', activation='elu'))
     model.add(Dense(1, kernel_initializer='he_normal', activation='elu'))
-    adam = Adam(lr=1e-4)
+    adam = Adam(lr=1e-3)
     model.compile(optimizer=adam, loss='mse', metrics=['accuracy'])
 
     return model
