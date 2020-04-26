@@ -1,4 +1,4 @@
-from model4 import CNNModel
+from model import CNNModel
 import cv2
 import sys
 import time
@@ -95,10 +95,10 @@ def predict_from_video(video_input_path, original_video_output_path, combined_vi
 
         predicted_labels.append(prediction[0][0])
 
-        # print(combined_image.shape, np.mean(flow_image_bgr), prediction[0][0])
+        # print(combined_image.shape, np.mean(flow_image_bgr), prediction[0][0]) str(format(4.232542352342, '.2f'))
 
-        cv2.putText(next_frame, str(prediction[0][0]), place, font, fontScale, fontColor, lineType)
-        cv2.putText(combined_image_save, str(prediction[0][0]), place, font, fontScale, fontColor, lineType)
+        cv2.putText(next_frame, str(format(prediction[0][0], '.3f')), place, font, fontScale, fontColor, lineType)
+        cv2.putText(combined_image_save, str(format(prediction[0][0], '3f')), place, font, fontScale, fontColor, lineType)
 
         video_writer.write(next_frame)
         video_writer_combined.write(combined_image_save.astype('uint8'))

@@ -2,7 +2,7 @@
 # from model3 import CNNModel
 import time
 
-from model4 import CNNModel
+from model import CNNModel
 
 import cv2
 import numpy as np
@@ -128,7 +128,7 @@ if __name__ == '__main__':
                                                                       PATH_TRAIN_IMAGES_FLOW_FOLDER, type=type_)
 
     samples = list(zip(train_images_pair_paths, train_labels))
-    train_samples, validation_samples = train_test_split(samples, test_size=0.2)
+    train_samples, validation_samples = train_test_split(samples, test_size=0.15)
 
     print('Total Images: {}'.format(len(train_images_pair_paths)))
     print('Train samples: {}'.format(len(train_samples)))
@@ -187,11 +187,11 @@ if __name__ == '__main__':
 
     # Plot training & validation accuracy values
     plt.plot(np.arange(1, len(history_object.history['accuracy']) + 1), history_object.history['accuracy'], 'r', linewidth=3.0)
-    plt.plot(np.arange(1, len(history_object.history['val_acc']) + 1), history_object.history['val_acc'], 'b',
+    plt.plot(np.arange(1, len(history_object.history['val_accuracy']) + 1), history_object.history['val_accuracy'], 'b',
              linewidth=3.0)
     plt.title('Model accuracy')
     plt.ylabel('Accuracy')
     plt.xlabel('Epoch')
     plt.legend(['Train', 'Test'], loc='upper left')
     plt.show()
-    plt.savefig('ModelAcc.png')
+    plt.savefig('graph_2.png')
