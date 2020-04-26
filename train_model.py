@@ -1,5 +1,7 @@
 # from model2 import CNNModel
 # from model3 import CNNModel
+import time
+
 from model4 import CNNModel
 
 import cv2
@@ -62,6 +64,7 @@ def prepareData(labels_path, images_path, flow_images_path, type=TYPE_FLOW_PRECO
 
 def generatorData(samples, batch_size=32, type=TYPE_FLOW_PRECOMPUTED):
     num_samples = len(samples)
+
     while 1:  # Loop forever so the generator never terminates
         samples = sklearn.utils.shuffle(samples)
         for offset in range(0, num_samples, batch_size):
@@ -136,6 +139,7 @@ if __name__ == '__main__':
     validation_generator = generatorData(validation_samples, batch_size=BATCH_SIZE, type=type_)
 
     print('Training model...')
+    t1 = time.time()
 
     model = CNNModel()
 
@@ -156,7 +160,9 @@ if __name__ == '__main__':
         use_multiprocessing=False,
         max_queue_size=10)
 
+    t2 = time.time()
     print('Training model complete...')
+    print(' Time Taken:', (t2 - t1)/60, 'minutes')
 
     print('Loss: ')
     print(history_object.history['loss'])

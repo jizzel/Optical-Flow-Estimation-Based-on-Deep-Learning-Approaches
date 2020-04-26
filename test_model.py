@@ -53,10 +53,10 @@ def predict_from_video(video_input_path, original_video_output_path, combined_vi
     flow_image_bgr_prev4 = np.zeros_like(prev_frame)
 
     # font = cv2.FONT_HERSHEY_SIMPLEX
-    font = cv2.FONT_HERSHEY_SCRIPT_SIMPLEX
+    font = cv2.QT_FONT_NORMAL
     place = (50, 50)
     fontScale = 1
-    fontColor = (255, 255, 255)
+    fontColor = (0, 0, 255)
     lineType = 2
 
     count = 0
@@ -117,7 +117,7 @@ def predict_from_video(video_input_path, original_video_output_path, combined_vi
     video_writer.release()
     video_writer_combined.release()
     print(' Prediction completed !')
-    print(' Time Taken:', (t2 - t1), 'seconds')
+    print(' Time Taken:', (t2 - t1)/60, 'minutes')
 
     predicted_labels[0] = predicted_labels[1]
     return predicted_labels
