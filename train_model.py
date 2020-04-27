@@ -2,7 +2,7 @@
 # from model3 import CNNModel
 import time
 
-from model import CNNModel
+from model4 import CNNModel
 
 import cv2
 import numpy as np
