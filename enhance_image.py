@@ -48,12 +48,14 @@ def elaborateImage(newFrame):
     # top_right = [width, height / 2 + 10]
     # bottom_right = [width, height - 130]
     # pts = np.array([bottom_left, top_left, top_center, top_right, bottom_right], np.int32)
-    pts = np.array([[160, 350], [210, 285.0], [320.0, 285.0], [430, 285.0], [480, 350]], np.int32)
+    pts = np.array([[160, 350], [210, 305.0], [320.0, 305.0], [400, 305.0], [450, 350]], np.int32)
     # print(height, width, bottom_left, top_left, top_center, top_right, bottom_right)
     pts = pts.reshape((-1, 1, 2))
     black_image = np.zeros((height, width, 1), np.uint8)
 
     polygonal_shape = cv2.fillPoly(black_image, [pts], (255, 255, 255))
+    # cv2.imshow('polygonal_shape', polygonal_shape)
+    # cv2.waitKey(5000)
     colored_masked_road = cv2.bitwise_and(new_frame_grey, new_frame_grey, mask=polygonal_shape)
     # new_frame_roi = highlightRoadLaneMarkings(newFrame)
     # new_frame_mask_and_road = cv2.add(colored_masked_road, new_frame_roi)  # Adding canny edge overlay to highlight the lane markers
