@@ -2,7 +2,7 @@
 # from model3 import CNNModel
 import time
 
-from model4 import CNNModel
+from model import CNNModel
 
 import cv2
 import numpy as np
@@ -143,7 +143,7 @@ if __name__ == '__main__':
 
     model = CNNModel()
 
-    callbacks = [EarlyStopping(monitor='val_loss', patience=4, mode='auto'),
+    callbacks = [EarlyStopping(monitor='loss', patience=4, mode='auto'),
                  ModelCheckpoint(filepath='best' + MODEL_NAME + '.h5', monitor='val_loss', save_best_only=True, mode='auto')]
 
     history_object = model.fit_generator(

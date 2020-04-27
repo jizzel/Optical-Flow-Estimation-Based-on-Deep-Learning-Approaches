@@ -1,4 +1,4 @@
-from model4 import CNNModel
+from model import CNNModel
 import cv2
 import sys
 import time
