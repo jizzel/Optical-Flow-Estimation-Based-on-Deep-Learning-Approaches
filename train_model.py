@@ -128,7 +128,7 @@ if __name__ == '__main__':
                                                                       PATH_TRAIN_IMAGES_FLOW_FOLDER, type=type_)
 
     samples = list(zip(train_images_pair_paths, train_labels))
-    train_samples, validation_samples = train_test_split(samples, test_size=0.15)
+    train_samples, validation_samples = train_test_split(samples, test_size=0.20)
 
     print('Total Images: {}'.format(len(train_images_pair_paths)))
     print('Train samples: {}'.format(len(train_samples)))
