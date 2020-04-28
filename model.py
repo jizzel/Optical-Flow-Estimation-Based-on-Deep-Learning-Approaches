@@ -14,9 +14,12 @@ def CNNModel():
     model.add(Conv2D(48, (3, 3), activation='elu', kernel_initializer='he_normal'))
     model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
 <<<<<<< HEAD
+<<<<<<< HEAD
     # model.add(Conv2D(64, (3, 3), strides=(1, 1), kernel_initializer='he_normal'))
     # model.add(ELU())
     # model.add(Dropout(0.5))
+=======
+>>>>>>> parent of aca21c3... one more conc2d
 =======
 >>>>>>> parent of aca21c3... one more conc2d
     model.add(Conv2D(60, (3, 3), strides=(1, 1), padding='valid', activation='elu', kernel_initializer='he_normal'))
