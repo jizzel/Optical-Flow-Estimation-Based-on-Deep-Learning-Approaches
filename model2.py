@@ -1,7 +1,6 @@
+
 from keras.models import Sequential
-from keras.layers import Flatten, Dense, Lambda, Convolution2D, Cropping2D, Dropout, Reshape, BatchNormalization, \
-    Activation
-from keras.optimizers import Adam
+from keras.layers import Flatten, Dense, Lambda, Convolution2D, Cropping2D, Dropout, Reshape, BatchNormalization, Activation
 
 
 def CNNModel():
@@ -11,20 +10,20 @@ def CNNModel():
     # normalize data
     # model.add(Lambda(lambda x: (x / 255) - 0.5, input_shape = (240, 320, 3)))
     # model.add(BatchNormalization(input_shape = (240, 320, 3)))
-    model.add(Convolution2D(24, 5, 5, subsample=(2, 2), init='he_normal', input_shape=(240, 320, 3)))
+    model.add(Convolution2D(24,5,5, subsample=(2,2), init = 'he_normal' , input_shape = (240, 320, 3)))
     # model.add(Convolution2D(24,5,5, subsample=(2,2), init = 'he_normal' ))
     model.add(BatchNormalization())
     model.add(Activation('elu'))
-    model.add(Convolution2D(36, 5, 5, subsample=(2, 2), init='he_normal'))
+    model.add(Convolution2D(36,5,5, subsample=(2,2), init = 'he_normal'))
     model.add(BatchNormalization())
     model.add(Activation('elu'))
-    model.add(Convolution2D(48, 5, 5, subsample=(2, 2), init='he_normal'))
+    model.add(Convolution2D(48,5,5, subsample=(2,2), init = 'he_normal'))
     model.add(BatchNormalization())
     model.add(Activation('elu'))
-    model.add(Convolution2D(64, 3, 3))
+    model.add(Convolution2D(64,3,3))
     model.add(BatchNormalization())
     model.add(Activation('elu'))
-    model.add(Convolution2D(64, 3, 3))
+    model.add(Convolution2D(64,3,3))
     model.add(BatchNormalization())
     model.add(Activation('elu'))
     model.add(Flatten())
@@ -39,7 +38,6 @@ def CNNModel():
     model.add(Activation('elu'))
     model.add(Dense(1))
 
-    adam = Adam(lr=1e-4)
-    model.compile(loss='mse', optimizer=adam, metrics=['accuracy'])
+    model.compile(loss='mse', optimizer='adam', metrics=['accuracy'])
 
     return model

@@ -42,33 +42,27 @@ def elaborateImage(newFrame):
     new_frame_adjusted = apply_brightness_contrast(newFrame, 30, 15)
     new_frame_grey = cv2.cvtColor(new_frame_adjusted, cv2.COLOR_BGR2GRAY)
     height, width = new_frame_grey.shape
-    # bottom_left = [0, height - 130]
-    # top_left = [0, height / 2 + 10]
-    # top_center = [width / 2, height / 2 - 15]
-    # top_right = [width, height / 2 + 10]
-    # bottom_right = [width, height - 130]
-    # pts = np.array([bottom_left, top_left, top_center, top_right, bottom_right], np.int32)
-    pts = np.array([[160, 350], [210, 305.0], [320.0, 305.0], [400, 305.0], [450, 350]], np.int32)
-    # print(height, width, bottom_left, top_left, top_center, top_right, bottom_right)
+    bottom_left = [0, height - 130]
+    top_left = [0, height / 2 + 10]
+    top_center = [width / 2, height / 2 - 15]
+    top_right = [width, height / 2 + 10]
+    bottom_right = [width, height - 130]
+    pts = np.array([bottom_left, top_left, top_center, top_right, bottom_right], np.int32)
     pts = pts.reshape((-1, 1, 2))
     black_image = np.zeros((height, width, 1), np.uint8)
 
     polygonal_shape = cv2.fillPoly(black_image, [pts], (255, 255, 255))
-    # cv2.imshow('polygonal_shape', polygonal_shape)
-    # cv2.waitKey(5000)
     colored_masked_road = cv2.bitwise_and(new_frame_grey, new_frame_grey, mask=polygonal_shape)
-    # new_frame_roi = highlightRoadLaneMarkings(newFrame)
-    # new_frame_mask_and_road = cv2.add(colored_masked_road, new_frame_roi)  # Adding canny edge overlay to highlight the lane markers
+    new_frame_roi = highlightRoadLaneMarkings(newFrame)
+    new_frame_mask_and_road = cv2.add(colored_masked_road, new_frame_roi)  # Adding canny edge overlay to highlight the lane markers
 
     # Cutting image basing on mask size
     # result = cutTopAndBottom(coloredMaskedRoad, int(height / 2 - 15), int(height - 130))
-    # result = cutTopAndBottom(colored_masked_road, int(height / 2 - 15), int(height - 130))
-    # cv2.imshow('result', result)
-    # cv2.waitKey(5000)
+    result = cutTopAndBottom(new_frame_mask_and_road, int(height / 2 - 15), int(height - 130))
 
     # convert back to BRG/jaa
-    result = cv2.cvtColor(colored_masked_road, cv2.COLOR_GRAY2BGR)
-    # result = reshape(result)
+    result = cv2.cvtColor(result, cv2.COLOR_GRAY2BGR)
+    result = reshape(result)
 
     return result
 

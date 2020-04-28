@@ -90,7 +90,7 @@ def preprocess_data(video_input_path, flow_video_output_path, image_folder_path,
     video_reader.release()
     video_writer.release()
     print(' Conversion completed !')
-    print(' Time Taken:', (t2 - t1)/60, 'minutes')
+    print(' Time Taken:', (t2 - t1), 'seconds')
 
     return
 

@@ -2,7 +2,7 @@
 # from model3 import CNNModel
 import time
 
-from model2 import CNNModel
+from model import CNNModel
 
 import cv2
 import numpy as np
@@ -128,7 +128,7 @@ if __name__ == '__main__':
                                                                       PATH_TRAIN_IMAGES_FLOW_FOLDER, type=type_)
 
     samples = list(zip(train_images_pair_paths, train_labels))
-    train_samples, validation_samples = train_test_split(samples, test_size=0.17)
+    train_samples, validation_samples = train_test_split(samples, test_size=0.15)
 
     print('Total Images: {}'.format(len(train_images_pair_paths)))
     print('Train samples: {}'.format(len(train_samples)))
@@ -143,7 +143,7 @@ if __name__ == '__main__':
 
     model = CNNModel()
 
-    callbacks = [EarlyStopping(monitor='val_loss', patience=6, mode='auto'),
+    callbacks = [EarlyStopping(monitor='val_loss', patience=4, mode='auto'),
                  ModelCheckpoint(filepath='best' + MODEL_NAME + '.h5', monitor='val_loss', save_best_only=True, mode='auto')]
 
     history_object = model.fit_generator(
