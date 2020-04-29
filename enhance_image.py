@@ -48,6 +48,7 @@ def elaborateImage(newFrame):
     top_right = [width, height / 2 + 10]
     bottom_right = [width, height - 130]
     pts = np.array([bottom_left, top_left, top_center, top_right, bottom_right], np.int32)
+    # pts = np.array([[160, 350], [210, 305.0], [320.0, 305.0], [400, 305.0], [450, 350]], np.int32)
     pts = pts.reshape((-1, 1, 2))
     black_image = np.zeros((height, width, 1), np.uint8)
 
