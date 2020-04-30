@@ -24,7 +24,7 @@ def CNNModel():
     model.add(Dense(50, kernel_initializer='he_normal', activation='elu'))
     model.add(Dense(10, kernel_initializer='he_normal', activation='elu'))
     model.add(Dense(1, kernel_initializer='he_normal', activation='elu'))
-    adam = Adam(lr=1e-4)
+    adam = Adam(lr=1e-3)
     model.compile(optimizer=adam, loss='mse', metrics=['accuracy'])
 
     return model
