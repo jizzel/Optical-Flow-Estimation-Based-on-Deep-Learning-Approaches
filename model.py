@@ -9,7 +9,6 @@ def CNNModel():
     model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
     model.add(Conv2D(24, (5, 5), activation='elu', padding='SAME',  kernel_initializer='he_normal'))
     model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
-    model.add(Dropout(0.25))
     model.add(Conv2D(36, (3, 3), activation='elu', kernel_initializer='he_normal'))
     model.add(MaxPooling2D(pool_size=(2, 2), strides=(2, 2)))
     model.add(Conv2D(48, (3, 3), activation='elu', kernel_initializer='he_normal'))
