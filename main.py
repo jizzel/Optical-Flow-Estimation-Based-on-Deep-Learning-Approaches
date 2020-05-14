@@ -8,8 +8,6 @@ from optical_flow import convertToOpticalFlow
 
 PATH_DATA_FOLDER = './data/'
 
-PATH_TRAIN_LABEL_PREPROCESSED = PATH_DATA_FOLDER + 'train_preprocessed.txt'
-
 PATH_TRAIN_LABEL = PATH_DATA_FOLDER + 'train.txt'
 PATH_TRAIN_VIDEO = PATH_DATA_FOLDER + 'train.mp4'
 PATH_TRAIN_FLOW_VIDEO = PATH_DATA_FOLDER + 'flow_train.mp4'

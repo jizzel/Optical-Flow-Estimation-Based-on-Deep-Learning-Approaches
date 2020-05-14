@@ -54,9 +54,9 @@ def predict_from_video(video_input_path, original_video_output_path, combined_vi
 
     # font = cv2.FONT_HERSHEY_SIMPLEX
     font = cv2.QT_FONT_NORMAL
-    place = (50, 50)
+    place = (510, 50)
     fontScale = 1
-    fontColor = (0, 0, 255)
+    fontColor = (0, 255, 125)
     lineType = 2
 
     count = 0
